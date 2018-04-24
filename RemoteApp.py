@@ -9,9 +9,7 @@ class RemoteApp:
 
 	def __init__(self, printer, app_info, guest_info):
 		# app info
-		self.app_name = app_info["name"]
-		self.app_class = app_info["class"]
-		self.command = self.app_name + '.' + self.app_class + '.x'
+		self.command = app_info["command"]
 		self.app_path = app_info["path"]
 
 

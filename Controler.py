@@ -1,4 +1,6 @@
 #! /usr/bin/python
+import traceback
+
 
 import libvirt
 
@@ -34,7 +36,7 @@ def print_testInfo():
     print "\n\n", 30*"*"
     print "Hosts: " + hosts_info["src"] + " " + hosts_info["dest"]
     print "Guest: " + guest_info["name"]
-    print "Application:", "path: ", app_info["path"], "name:", app_info["name"], "class:", app_info["class"]
+    print "Application:", "path: ", app_info["path"], "command:", app_info["command"]
     print "Settings: ", "migrate:", config["migrate"], "csv: ", config["csv"],
     print "CSV: ", "path:", csv_info["path"], "name:", csv_info["name"]
     print 30*"*", "\n\n"
@@ -150,9 +152,11 @@ def runTest():
         app.closeSSH()
 
 
-    except:
+    except Exception as e:
         printer.puts("ERROR: main test error", True)
         status = False
+        print e
+        traceback.print_exc()
 
     return status
     

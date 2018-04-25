@@ -23,6 +23,8 @@ mailMe_info = Commom.getSections("mailMe")
 config = Commom.getSections("Config", True)
 csv_info = Commom.getSections("csv")
 
+action = Commom.getSections("type")
+
 if config["mailme"]:
     mail = mailMe(mailMe_info)
 else:
@@ -179,11 +181,11 @@ def forceDestroyDom():
     except:
         print "error to close the environment"
 
-def main():
-    # TODO print test info
 
-    # print_testInfo()
+def migration():
 
+    msg = '''
+    '''
     print_testInfo()
 
     num_executions = 1
@@ -207,7 +209,21 @@ def main():
 
         printer.puts("###########\n\n")
 
-        
+def scaling():
+    pass
+
+
+
+
+def main():
+    # TODO print test info
+
+    # print_testInfo()
+
+    if action['type'] == "migration":
+        migration()
+    elif action['type'] == "scaling":
+        scaling()
     
 
 if __name__ == "__main__":

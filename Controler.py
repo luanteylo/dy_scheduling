@@ -172,16 +172,22 @@ def runTestMigrate():
         src.close()
         dest.close()
         app.closeSSH()
+    except Exception as e:
+        printer.puts("ERROR: main test error", True)
+        status = False
+        print e
+        traceback.print_exc()
+
+    return status
         
 def runTestScale():
     status = True
-    
     try:
         src = connect2Host(hosts_info["src"])
         dest = connect2Host(hosts_info["dest"])
 
         dom = startDom(guest_info["name"], src)
-#        app = RemoteApp(printer, app_info, guest_info)
+#       app = RemoteApp(printer, app_info, guest_info)
         
         # start new thread and exec application
 #       thread1 = execThread(app)
@@ -214,8 +220,6 @@ def runTestScale():
         src.close()
         dest.close()
         app.closeSSH()
-
-
     except Exception as e:
         printer.puts("ERROR: main test error", True)
         status = False
@@ -271,8 +275,8 @@ def migration():
         printer.puts("###########\n\n")
 
 def scaling():
+    runTestScale()
     
-    pass
 
 
 

@@ -95,6 +95,28 @@ def migrate(src, dest, dom):
 
     return new_dom
 
+def scale(dom, vcpuNumber, memNumber):
+    try:
+       scaleVcpu(dom, vcpuNumber)
+       scaleMemory(dom, memNumber)        
+    except libvirt.libvirtError as e:
+        printer.puts("Controler - scale: libvirtError", True)  
+        raise
+    
+def scaleVcpu(dom, vcpuNumber):
+    try:
+        dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+    except libvirt.libvirtError as e:
+        printer.puts("Controler - scale vcpu: libvirtError", True)  
+        raise
+    
+def scaleMemory(dom, memNumber):
+    try:
+        dom.setMemoryFlags(memory=memNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+    except libvirt.libvirtError as e:
+        printer.puts("Controler - scale memory: libvirtError", True)  
+        raise
+    
 def manager_app(app):
     app.execApp()
 
@@ -105,9 +127,7 @@ def execThread(app):
 
     return t1
 
-
-def runTest():
-   
+def runTestMigrate():
     status = True
     
     try:
@@ -152,6 +172,48 @@ def runTest():
         src.close()
         dest.close()
         app.closeSSH()
+        
+def runTestScale():
+    status = True
+    
+    try:
+        src = connect2Host(hosts_info["src"])
+        dest = connect2Host(hosts_info["dest"])
+
+        dom = startDom(guest_info["name"], src)
+#        app = RemoteApp(printer, app_info, guest_info)
+        
+        # start new thread and exec application
+#       thread1 = execThread(app)
+
+        scale(dom, 3, 2000)
+
+        #thread1.join()
+
+        out, err, code, runtime = app.getAppOutput()
+
+        if code == 0:
+            printer.puts("Application Finished with sucess")
+            printer.puts("application runtime: " + str(runtime))
+
+        else:
+            printer.puts("Application Finished with error", True)
+            printer.puts(err, True)
+            printer.puts(out, True)
+            print "Erro code: ", code
+
+
+
+        # output csv
+        if config["csv"]:
+            with open(csv_info["path"]+csv_info["name"], "a") as csv:
+                csv.write(str(runtime) + "\n")
+
+        # close environment
+        # destroyDom(dom)
+        src.close()
+        dest.close()
+        app.closeSSH()
 
 
     except Exception as e:
@@ -183,7 +245,6 @@ def forceDestroyDom():
 
 
 def migration():
-
     msg = '''
     '''
     print_testInfo()
@@ -210,6 +271,7 @@ def migration():
         printer.puts("###########\n\n")
 
 def scaling():
+    
     pass
 
 

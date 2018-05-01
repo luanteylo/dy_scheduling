@@ -20,4 +20,4 @@ versão 1.0 - 2018.
 ## Author
 
 * **Luan Teylo**  
-* **Matheus Filipe **  
+* **Matheus Filipe**  

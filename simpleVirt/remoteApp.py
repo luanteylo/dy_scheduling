@@ -5,7 +5,7 @@ import paramiko
 import time
 
 
-class RemoteApp:
+class remoteApp:
 
 	def __init__(self, printer, app_info, guest_info):
 		# app info
@@ -30,29 +30,31 @@ class RemoteApp:
 		#start connection
 
 		
-		
 		self.__openSSH()
 		
 
 	def __openSSH(self):
 		#start connection
 		# for i in range(self.repeat):
-		try:
-			count = 0
-			while count < self.ssh_repeat:
-				time.sleep(1)
-				try:
-					self.client = paramiko.SSHClient()
-					self.client.load_system_host_keys()
-					self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-					self.client.connect(hostname=self.ip, port=self.port, username=self.user, password=self.pwd, auth_timeout=self.auth_timeout)
-					count = self.ssh_repeat
-				except Exception as e:
-					print e, "try number " + str(count+1)
-					count += 1
+		
+		count = 0
+		while count < self.ssh_repeat:
+			time.sleep(1)
+			try:
+				self.client = paramiko.SSHClient()
+				self.client.load_system_host_keys()
+				self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+				self.client.connect(hostname=self.ip, port=self.port, username=self.user, password=self.pwd, auth_timeout=self.auth_timeout)
+				count = self.ssh_repeat
+			except Exception as e:
+				print e, "try number " + str(count+1)
+				count += 1
 
+		try:
+			transport = self.client.get_transport()
+			transport.send_ignore()
 		except Exception as e:
-			print str(e)
+	
 		 	self.printer.puts("SSH connection to " + self.ip +  " error ", True)
 		 	raise
 		
@@ -157,8 +159,4 @@ class RemoteApp:
 		return status
 
 
-
-
-
-
-
+ 

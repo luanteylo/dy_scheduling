@@ -5,15 +5,11 @@ from  datetime import datetime
 
 class mailMe:
 
-	def __init__(self, mailMe_info = None,  user='', pwd=''):
+	def __init__(self, mailMe_info):
 
-		if mailMe_info is not None:
-			self.user = mailMe_info['user']
-			self.pwd = mailMe_info['pwd']
-		else:
-			self.user = user
-			self.pwd = pwd
-
+		self.user = mailMe_info['user']
+		self.pwd = mailMe_info['pwd']
+		
 		self.mailMe_info = mailMe_info
 
 	def __prepare_and_send(self, recipient, subject, body):

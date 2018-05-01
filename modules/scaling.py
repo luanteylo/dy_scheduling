@@ -8,6 +8,8 @@ from util.printer import printer
 from util.thread import thread
 
 
+# Scaling module
+
 class scaling:
 
     def __init__(self, inputParser):

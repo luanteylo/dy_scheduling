@@ -1,7 +1,7 @@
 # dy_scheduling
 
 
-dy_scheduling is a python application that controls the virtual machines (VMs) live cycles using the QEMU with KVM. 
+dy_scheduling is a python application that controls the virtual machines' live cycles using the QEMU with KVM. 
 
 
 

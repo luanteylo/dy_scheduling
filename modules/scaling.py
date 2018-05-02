@@ -7,7 +7,7 @@ from mailMe.mailMe import mailMe
 from util.printer import printer
 from util.thread import thread
 
-
+import traceback
 # Scaling module
 
 class scaling:
@@ -40,16 +40,15 @@ class scaling:
         try:
 
             src = self.virt.connect2Host(self.hostsInfo["src"])
-            dest = self.virt.connect2Host(self.hostsInfo["dest"])
-
+            
             dom = self.virt.startDom(self.guestInfo["name"], src)
-
-            # app = RemoteApp(printer, app_info, guest_info)
+            
+            app = remoteApp(self.printer, self.appInfo, self.guestInfo)
             # start new thread and exec application
             # thread1 = execThread(app)
-
-            self.virt.scale(dom, 3, 2000)
-            # thread1.join()
+            app.execApp()
+            #self.virt.scale(dom, 3, 2000)
+        # thread1.join()
             # out, err, code, runtime = app.getAppOutput()
 
             # if code == 0:
@@ -70,12 +69,12 @@ class scaling:
 
             self.virt.destroyDom(dom)
             src.close()
-            dest.close()
-            # app.closeSSH()
+            app.closeSSH()
         except Exception as e:
             self.printer.puts("ERROR: main test error", True)
             status = False
             print e
+            traceback.print_exc()
             
 
         return status

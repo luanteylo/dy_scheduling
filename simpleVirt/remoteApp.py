@@ -57,8 +57,7 @@ class remoteApp:
 	
 		 	self.printer.puts("SSH connection to " + self.ip +  " error ", True)
 		 	raise
-		
-		self.printer.puts("SSH connection success")
+                self.printer.puts("SSH connection success")
 		
 	
 	def closeSSH(self):

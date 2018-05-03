@@ -1,6 +1,7 @@
 #! /usr/bin/python
 
 import smtplib
+import socket
 from  datetime import datetime
 
 class mailMe:
@@ -28,6 +29,7 @@ class mailMe:
 			server.ehlo()
 			server.starttls()
 			server.login(self.user, self.pwd)
+			socket.setdefaulttimeout(10)
 			server.sendmail(FROM, TO, message)
 			server.close()
 			print 'successfully sent the mail'

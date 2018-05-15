@@ -1,5 +1,0 @@
-<disk type='file' device='disk'>
- <driver name='qemu' type='raw' cache='none'/>
- <source file='/tmp/other_disk2.img'/>
- <target dev='vdb'/>
-</disk>

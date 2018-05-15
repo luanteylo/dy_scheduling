@@ -1,0 +1,3 @@
+[submodule "synthetic"]
+	path = synthetic
+	url = https://github.com/luanteylo/synthetic

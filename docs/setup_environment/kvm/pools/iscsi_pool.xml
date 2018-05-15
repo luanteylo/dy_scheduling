@@ -1,0 +1,11 @@
+<pool type='iscsi'>
+  <name>iscsi_pool</name>
+  <source>
+    <host name='10.100.10.86' port='3260'/>
+    <device path='iqn.2016-04.world.srv:storage.target00'/>
+  </source>
+  <target>
+    <path>/dev/disk/by-path</path>
+  </target>
+</pool>
+

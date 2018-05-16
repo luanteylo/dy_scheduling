@@ -77,7 +77,7 @@ class simpleVirt:
 
         self.migrate_time = end - start;
 
-        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated.')
+        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated. Time: ' + str(self.migrate_time))
 
         return new_dom
 

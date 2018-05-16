@@ -109,11 +109,13 @@ class migration:
 
             # output csv
             if self.configInfo["csv"]:
+              
                 content = str(runtime)
 
                 if self.configInfo["migrate"]:
-                    content = content + ", " + str(self.virt.migrate_time)
-                content + "\n"
+                    content +=  ", " + str(self.virt.migrate_time)
+
+                content += "\n"
 
                 self.printer.write_file(self.csvInfo["path"], self.csvInfo["name"], content, "a")
 

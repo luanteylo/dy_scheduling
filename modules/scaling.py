@@ -48,7 +48,7 @@ class scaling:
             # thread1 = execThread(app)
             app.execApp()
             print self.virt.getVcpuCount(dom)
-            self.virt.scaleVcpu(dom, 6)
+            self.virt.scaleMemory(dom, "8G")
             
             
             print self.virt.getVcpuCount(dom)

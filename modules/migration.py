@@ -84,9 +84,8 @@ class migration:
 
             if self.configInfo["migrate"]:
                 time.sleep(int(self.migrationInfo["waiting"]))
-                migrate_time = 0.0
-                dom = self.virt.migrate(src, dest, dom, migrate_time)
-                print migrate_time
+                dom = self.virt.migrate(src, dest, dom)
+                
 
 
             thread1.join()
@@ -110,7 +109,13 @@ class migration:
 
             # output csv
             if self.configInfo["csv"]:
-                self.printer.write_file(self.csvInfo["path"], self.csvInfo["name"], str(runtime) + "\n", "a")
+                content = str(runtime)
+
+                if self.configInfo["migrate"]:
+                    content = content + ", " + str(self.virt.migrate_time)
+                content + "\n"
+
+                self.printer.write_file(self.csvInfo["path"], self.csvInfo["name"], content, "a")
 
             # finish environment
             self.virt.destroyDom(dom)

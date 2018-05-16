@@ -12,6 +12,10 @@ class simpleVirt:
         self.hosts_info = hosts_info
         self.guest_info = guest_info
 
+        # time operations
+        self.startDom_time = None
+        self.migrate_time = None
+
     def connect2Host(self, host):
         conn = libvirt.open('qemu+ssh://' + host + '/system')
         if conn == None:
@@ -33,12 +37,18 @@ class simpleVirt:
         return dom
 
     def startDom(self, name, conn):
+        start = time.time()
+
         try:
             dom = self.getDomByName(name, conn)
             dom.create()
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - startDom: libvirtError", True)
             raise
+
+        end = time.time()
+        self.startDom_time = end - start
+
 
         self.printer.puts('Dominio ' + name + ' was started.')
         return dom
@@ -53,9 +63,9 @@ class simpleVirt:
         self.printer.puts('Dominio  was destroyed.')
         return dom
 
-    def migrate(self, src, dest, dom, migrate_time=0.0):
+    def migrate(self, src, dest, dom):
 
-        start_time = time.time()
+        start = time.time()
 
         try:
             new_dom = dom.migrate(dest, 0, None, None, 0)
@@ -63,11 +73,11 @@ class simpleVirt:
             self.printer.puts("Controler - migrate: libvirtError", True)
             raise
 
-        end_time = time.time()
+        end = time.time()
 
-        migrate_time = end_time - start_time;
+        self.migrate_time = end - start;
 
-        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated. time: ' + str(end_time -start_time))
+        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated.')
 
         return new_dom
 

@@ -74,8 +74,21 @@ class simpleVirt:
 
     def scaleVcpu(self, dom, vcpuNumber):
         try:
-            dom.setVcpusFlags(nvcpus=vcpuNumber,
-                              flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+            currentVcpuCount = self.getVcpuCount(dom)
+            
+            if vcpuNumber < currentVcpuCount :
+            
+                dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+                
+            elif vcpuNumber > currentVcpuCount:
+                dom.setVcpus(nvcpus=vcpuNumber)
+                dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_LIVE)
+                dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_CURRENT)              
+                dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+                
+                #dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+                
+                
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale vcpu: libvirtError", True)
             raise
@@ -87,7 +100,15 @@ class simpleVirt:
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale memory: libvirtError", True)
             raise
-
+        
+    def getVcpuCount(self, dom):
+        try:
+            return dom.vcpusFlags(libvirt.VIR_DOMAIN_VCPU_GUEST)
+        except libvirt.libvirtError as e:
+            self.printer.puts("Controler - vcpuCount: libvirtError", True)
+            raise
+    
+        
     def forceDestroyDom(self):
         self.printer.puts("An error occured. Finishing environment...", True)
         try:

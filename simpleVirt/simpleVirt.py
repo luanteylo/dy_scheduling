@@ -2,7 +2,7 @@
 
 
 import libvirt
-
+import time
 
 class simpleVirt:
 
@@ -53,14 +53,21 @@ class simpleVirt:
         self.printer.puts('Dominio  was destroyed.')
         return dom
 
-    def migrate(self, src, dest, dom):
+    def migrate(self, src, dest, dom, migrate_time=0.0):
+
+        start_time = time.time()
+
         try:
             new_dom = dom.migrate(dest, 0, None, None, 0)
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - migrate: libvirtError", True)
             raise
 
-        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated.')
+        end_time = time.time()
+
+        migrate_time = end_time - start_time;
+
+        self.printer.puts('Dominio ' + new_dom.name() + '  was migrated. time: ' + str(end_time -start_time))
 
         return new_dom
 

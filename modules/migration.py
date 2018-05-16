@@ -84,7 +84,10 @@ class migration:
 
             if self.configInfo["migrate"]:
                 time.sleep(int(self.migrationInfo["waiting"]))
-                dom = self.virt.migrate(src, dest, dom)
+                migrate_time = 0.0
+                dom = self.virt.migrate(src, dest, dom, migrate_time)
+                print migrate_time
+
 
             thread1.join()
 
@@ -93,6 +96,10 @@ class migration:
             if code == 0:
                 self.printer.puts("Application Finished with sucess")
                 self.printer.puts("application runtime: " + str(runtime))
+
+                # write app output
+                if self.configInfo["write_app_output"]:
+                    self.printer.write_file(self.appInfo["path_out"], self.appInfo["output_file"], out + "\n\n", "a");
                 # self.printer.puts(out)
 
             else:
@@ -103,8 +110,7 @@ class migration:
 
             # output csv
             if self.configInfo["csv"]:
-                with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
-                    csv.write(str(runtime) + "\n")
+                self.printer.write_file(self.csvInfo["path"], self.csvInfo["name"], str(runtime) + "\n", "a")
 
             # finish environment
             self.virt.destroyDom(dom)

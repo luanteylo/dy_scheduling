@@ -11,5 +11,4 @@ host = connect2Host(hosts_info["src"])
 dom = getDomByName(guest_info["name"], host)
 print dom.vcpusFlags(flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
 
-
 #

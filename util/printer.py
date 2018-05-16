@@ -9,3 +9,7 @@ class printer:
 
         if self.verbose or warning:
             print content
+
+    def write_file(self, path, name, content, mode="w"):
+    	with open(path + name, mode) as file:
+    		file.write(content);

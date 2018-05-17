@@ -96,9 +96,9 @@ class simpleVirt:
         try:
            info = dom.info()
            if(flag == 0):
-               return info[1]
+               return info[1] #RETURNS MAX MEMORY
            elif(flag == 1):
-               return info[2]
+               return info[2] #RETURNS VIRTUAL MEMORY
            else:
                self.printer.puts("Controler - info memory: invalid memory info flag", True)
                raise

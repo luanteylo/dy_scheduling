@@ -92,11 +92,25 @@ class simpleVirt:
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale vcpu: libvirtError", True)
             raise
+    def getMemoryInfo(self, dom, flag=0):
+        try:
+           info = dom.info()
+           if(flag == 0):
+               return info[1]
+           elif(flag == 1):
+               return info[2]
+           else:
+               self.printer.puts("Controler - info memory: invalid memory info flag", True)
+               raise
+           
+        except libvirt.libvirtError as e:
+            self.printer.puts("Controler - scale memory: libvirtError", True)
+            raise
 
     def scaleMemory(self, dom, memNumber):
         try:
-            dom.setMemoryFlags(
-                memory=memNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
+            dom.setMemory(
+                memory=memNumber)
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale memory: libvirtError", True)
             raise
@@ -107,7 +121,12 @@ class simpleVirt:
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - vcpuCount: libvirtError", True)
             raise
-    
+    #def getMemCount(self, dom):
+    #    try:
+    #        return dom.getMemoryParameters()
+    #    except libvirt.libvirtError as e:
+    #        self.printer.puts("Controler - vcpuCount: libvirtError", True)
+    #        raise
         
     def forceDestroyDom(self):
         self.printer.puts("An error occured. Finishing environment...", True)

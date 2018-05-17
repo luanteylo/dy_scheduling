@@ -47,11 +47,13 @@ class scaling:
             # start new thread and exec application
             # thread1 = execThread(app)
             app.execApp()
-            print self.virt.getVcpuCount(dom)
-            self.virt.scaleMemory(dom, "8G")
+            print self.virt.getMemoryInfo(dom)
+            print self.virt.getMemoryInfo(dom,1)
+            self.virt.scaleMemory(dom, 40000)
+            print self.virt.getMemoryInfo(dom,0)
+            print self.virt.getMemoryInfo(dom,1)
             
-            
-            print self.virt.getVcpuCount(dom)
+            #print self.virt.getMemCount(dom)
             
         # thread1.join()
             # out, err, code, runtime = app.getAppOutput()
@@ -72,7 +74,7 @@ class scaling:
 
             # finish environment
 
-            #self.virt.destroyDom(dom)
+            self.virt.destroyDom(dom)
             src.close()
             app.closeSSH()
         except Exception as e:

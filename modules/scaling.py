@@ -50,7 +50,7 @@ class scaling:
             print self.virt.getMemoryInfo(dom)
             print self.virt.getMemoryInfo(dom,1)
             self.virt.scaleMemory(dom, 20000)
-            time.sleep(10) 
+            #time.sleep(200) 
             print self.virt.getMemoryInfo(dom,0)
             print self.virt.getMemoryInfo(dom,1)
             

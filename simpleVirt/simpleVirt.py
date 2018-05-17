@@ -2,7 +2,7 @@
 
 
 import libvirt
-
+import time
 
 class simpleVirt:
 
@@ -92,6 +92,7 @@ class simpleVirt:
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale vcpu: libvirtError", True)
             raise
+        
     def getMemoryInfo(self, dom, flag=0):
         try:
            info = dom.info()
@@ -102,15 +103,27 @@ class simpleVirt:
            else:
                self.printer.puts("Controler - info memory: invalid memory info flag", True)
                raise
-           
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale memory: libvirtError", True)
             raise
+
 
     def scaleMemory(self, dom, memNumber):
         try:
             dom.setMemory(
                 memory=memNumber)
+            ballooningProc = True
+            memNow = self.getMemoryInfo(dom, 1)
+            
+            while(ballooningProc):
+                time.sleep(1)
+                memNew = self.getMemoryInfo(dom, 1)
+                if(memNow < memNew):
+                    memNow = memNew
+                elif(memNow == memNew):
+                    ballooningProc = False
+                elif(memNow > memNew):
+                    memNow = memNew       
         except libvirt.libvirtError as e:
             self.printer.puts("Controler - scale memory: libvirtError", True)
             raise

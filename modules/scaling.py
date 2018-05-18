@@ -24,6 +24,8 @@ class scaling:
         self.printer = printer(self.configInfo["verbose"])
 
         self.mail = None
+        
+        self.machineConfig = inputParser.machineConfig
 
         if self.configInfo["mailme"]:
             self.mail = mailMe(self.mailMeInfo)
@@ -41,6 +43,10 @@ class scaling:
 
             src = self.virt.connect2Host(self.hostsInfo["src"])
             
+            dom = self.virt.getDomByName(self.guestInfo["name"],src)
+            
+            self.virt.config(dom, int(self.machineConfig["vcpu_start"]),int(self.machineConfig["memory_start"]),int(self.machineConfig["max_memory"]))
+            
             dom = self.virt.startDom(self.guestInfo["name"], src)
             
             app = remoteApp(self.printer, self.appInfo, self.guestInfo)
@@ -49,7 +55,7 @@ class scaling:
             app.execApp()
             print self.virt.getMemoryInfo(dom)
             print self.virt.getMemoryInfo(dom,1)
-            self.virt.scaleMemory(dom, 20000)
+            self.virt.scale(dom,  int(self.machineConfig["vcpu_end"]),int(self.machineConfig["memory_end"]))
             #time.sleep(200) 
             print self.virt.getMemoryInfo(dom,0)
             print self.virt.getMemoryInfo(dom,1)

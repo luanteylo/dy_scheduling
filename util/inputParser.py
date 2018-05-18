@@ -48,5 +48,7 @@ class inputParser:
         self.mailMeInfo = self.__getSections("mailMe")
         self.csvInfo = self.__getSections("csv")
         self.migrationInfo = self.__getSections("Migration")
+        
+        self.machineConfig = self.__getSections("MachineConfig")
 
         print ""

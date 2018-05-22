@@ -21,6 +21,30 @@ class simpleVirt:
 
         return conn
 
+    def wait4Connection(self):
+        count = 0
+        ssh_repeat = int(self.guest_info["ssh_repeat"])
+        while count < ssh_repeat:
+            time.sleep(1)
+            try:
+                self.client = paramiko.SSHClient()
+                self.client.load_system_host_keys()
+                self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+                self.client.connect(hostname=self.guest_info["ip"], port=int(self.guest_info["port"]), username=self.guest_info["user"], password=self.guest_info["password"], auth_timeout=self.app_info["auth_timeout"])
+                count = ssh_repeat
+            except Exception as e:
+                print e, "try number " + str(count+1)
+                count += 1
+
+        try:
+            transport = self.client.get_transport()
+            transport.send_ignore()
+        except Exception as e:
+            self.printer.puts("SSH connection to " + guest_info["ip"] +  " error ", True)
+            raise
+        self.printer.puts("SSH connection success")
+        self.client.close()
+        
     def getDomByName(self, name, conn):
         try:
             dom = conn.lookupByName(name)
@@ -107,6 +131,8 @@ class simpleVirt:
             raise
 
     def scaleMemory(self, dom, memNumber):
+        memNumber = memNumber * (1048576)
+               
         try:
             if(memNumber > self.getMemoryInfo(dom,0)):
                    self.printer.puts("Controler - scale memory: memory requested is higher than the maximum memory allowed", True)
@@ -139,6 +165,8 @@ class simpleVirt:
             raise
         
     def config(self, dom, vcpuNumber, memNumber, memMax):
+        memNumber = memNumber * (1048576)
+        memMax = memMax * (1048576)
         try:
             info = dom.info()
             print info[0]

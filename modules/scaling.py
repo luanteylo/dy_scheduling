@@ -7,6 +7,7 @@ from mailMe.mailMe import mailMe
 from util.printer import printer
 from util.thread import thread
 import time
+import timeit
 import traceback
 # Scaling module
 
@@ -40,6 +41,8 @@ class scaling:
         status = True
 
         try:
+            
+            start_time = timeit.default_timer()
 
             src = self.virt.connect2Host(self.hostsInfo["src"])
             
@@ -49,41 +52,53 @@ class scaling:
             
             dom = self.virt.startDom(self.guestInfo["name"], src)
             
+            self.virt.wait4Connection()
+            
+            setup_time = timeit.default_timer()
+            
             app = remoteApp(self.printer, self.appInfo, self.guestInfo)
             # start new thread and exec application
-            # thread1 = execThread(app)
+            thread1 = execThread(app)
             app.execApp()
-            print self.virt.getMemoryInfo(dom)
-            print self.virt.getMemoryInfo(dom,1)
+            
+            thread1.join()
+            first_part_time = timeit.default_timer()
+            
             self.virt.scale(dom,  int(self.machineConfig["vcpu_end"]),int(self.machineConfig["memory_end"]))
-            #time.sleep(200) 
-            print self.virt.getMemoryInfo(dom,0)
-            print self.virt.getMemoryInfo(dom,1)
             
-            #print self.virt.getMemCount(dom)
+            scale_time = timeit.default_timer()
             
-        # thread1.join()
-            # out, err, code, runtime = app.getAppOutput()
+            thread1 = execThread(app)
+            app.execApp()
+            thread1.join()
+            
+            thread1 = execThread(app)
+            app.execApp()
+            thread1.join()
+            
+            second_part_time = timeit.default_timer()
+            out, err, code, runtime = app.getAppOutput()
 
-            # if code == 0:
-            # 	self.printer.puts("Application Finished with sucess")
-            #     self.printer.puts("application runtime: " + str(runtime))
-            #     # self.printer.puts(out)
-            # else:
-            #     self.printer.puts("Application Finished with error", True)
-            #     self.printer.puts(err, True)
-            #     self.printer.puts(out, True)
-            #     print "Erro code: ", code
-            # # output csv
-            # if self.configInfo["csv"]:
-            #     with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
-            #         csv.write(str(runtime) + "\n")
+            if code == 0:
+                self.printer.puts("Application Finished with sucess")
+                self.printer.puts("application runtime: " + str(runtime))
+                #self.printer.puts(out)
+            else:
+                 self.printer.puts("Application Finished with error", True)
+                 self.printer.puts(err, True)
+                 self.printer.puts(out, True)
+                 print "Erro code: ", code
+             # output csv
+            if self.configInfo["csv"]:
+                 with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
+                     csv.write(str(runtime) + "\n")
 
             # finish environment
 
             self.virt.destroyDom(dom)
             src.close()
             app.closeSSH()
+            finish_time = timeit.default_timer()
         except Exception as e:
             self.printer.puts("ERROR: main test error", True)
             status = False

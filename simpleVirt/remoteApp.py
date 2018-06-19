@@ -14,7 +14,7 @@ class remoteApp:
 
 
 		self.auth_timeout = int(app_info["auth_timeout"])
-		self.ssh_repeat = int(app_info["ssh_repeat"])
+		
 		
 		# connection info
 		self.ip = guest_info["ip"]

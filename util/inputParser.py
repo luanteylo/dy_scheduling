@@ -45,6 +45,7 @@ class inputParser:
         self.guestInfo = self.__getSections("Guest")
         self.appInfo = self.__getSections("Application")
         self.configInfo = self.__getSections("Config", True)
+        self.machineConfig = self.__getSections("MachineConfig")
         self.mailMeInfo = self.__getSections("mailMe")
         self.csvInfo = self.__getSections("csv")
         self.migrationInfo = self.__getSections("Migration")

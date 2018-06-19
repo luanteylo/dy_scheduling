@@ -3,15 +3,29 @@
 
 import libvirt
 import time
+import paramiko
 
 class simpleVirt:
 
-    def __init__(self, printer, hosts_info, guest_info):
 
+    def __init__(self, printer, hosts_info, guest_info, app_info):
         self.printer = printer
         self.hosts_info = hosts_info
         self.guest_info = guest_info
+        
+        self.auth_timeout = int(app_info["auth_timeout"])
+        self.ssh_repeat = int(app_info["ssh_repeat"])
+		
+		# connection info
+	self.ip = guest_info["ip"]
+        self.user = guest_info["user"]
+        self.pwd = guest_info["password"]
+        self.port = int(guest_info["port"])
 
+		# print self.ip, self.user, self.pwd, self.port
+
+        self.printer = printer
+        
     def connect2Host(self, host):
         conn = libvirt.open('qemu+ssh://' + host + '/system')
         if conn == None:
@@ -21,16 +35,16 @@ class simpleVirt:
 
         return conn
 
-    def wait4Connection(self):
+    def wait4Connection(self, ssh_repeat):
         count = 0
-        ssh_repeat = int(self.guest_info["ssh_repeat"])
+        
         while count < ssh_repeat:
             time.sleep(1)
             try:
                 self.client = paramiko.SSHClient()
                 self.client.load_system_host_keys()
                 self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                self.client.connect(hostname=self.guest_info["ip"], port=int(self.guest_info["port"]), username=self.guest_info["user"], password=self.guest_info["password"], auth_timeout=self.app_info["auth_timeout"])
+                self.client.connect(hostname=self.ip, port=self.port, username=self.user, password=self.pwd, auth_timeout=self.auth_timeout)
                 count = ssh_repeat
             except Exception as e:
                 print e, "try number " + str(count+1)
@@ -99,16 +113,18 @@ class simpleVirt:
         try:
             currentVcpuCount = self.getVcpuCount(dom)
             
+            info = dom.info()
+            
+            
             if vcpuNumber < currentVcpuCount :
             
                 dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
                 
             elif vcpuNumber > currentVcpuCount:
                 dom.setVcpus(nvcpus=vcpuNumber)
-                #dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_LIVE)
+                    #dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_LIVE)
                 dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
                 dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_GUEST)
-                
                 
                 
                 
@@ -171,9 +187,25 @@ class simpleVirt:
             info = dom.info()
             print info[0]
             if(info[0] == 5):
+                
                 dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+                #dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_AFFECT_LIVE)
+                #dom.setVcpusFlags(nvcpus=vcpuNumber, flags=libvirt.VIR_DOMAIN_VCPU_MAXIMUM)
                 dom.setMemoryFlags(memory = memMax, flags=libvirt.VIR_DOMAIN_MEM_MAXIMUM)
                 dom.setMemoryFlags(memory = memNumber, flags=libvirt.VIR_DOMAIN_AFFECT_CONFIG)
+                
+                ballooningProc = True
+                memNow = self.getMemoryInfo(dom, 1)
+            
+                while(ballooningProc):
+                    time.sleep(1)
+                    memNew = self.getMemoryInfo(dom, 1)
+                    if(memNow < memNew):
+                        memNow = memNew
+                    elif(memNow == memNew):
+                        ballooningProc = False
+                    elif(memNow > memNew):
+                        memNow = memNew     
             else:
                 self.printer.puts("Controler - configuration error: machine is not shutdown, cannot configurations won't take effect and maxmemory can't be changed while running", True)
                 

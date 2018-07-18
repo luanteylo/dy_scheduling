@@ -10,6 +10,7 @@ from util.inputParser import inputParser
 
 from modules.migration import migration
 from modules.scaling import scaling
+from modules.aws import aws
 
 
 def main():
@@ -18,7 +19,7 @@ def main():
     parser.add_argument('--config', help='config file name',
                         default='default.conf')
     parser.add_argument('--module', help='Module name',
-                        choices=['migration', 'scaling'], default='migration')
+                        choices=['migration', 'scaling','aws'], default='migration')
 
     args = parser.parse_args()
     conf = inputParser(args.config)
@@ -32,6 +33,11 @@ def main():
 
         print "starting Scaling project."
         scaling(conf).run()
+    
+    elif args.module == "aws":
+
+        print "starting Scaling project."
+        aws(conf).run()
 
 
 if __name__ == "__main__":

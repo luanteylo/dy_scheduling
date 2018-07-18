@@ -5,9 +5,15 @@ import libvirt
 import time
 import paramiko
 
+
+import boto3 
+from botocore.exceptions import ClientError, ConfigParseError
+
+
+
 class simpleVirt:
 
-
+    #KVM FUNCTIONS
     def __init__(self, printer, hosts_info, guest_info, app_info):
         self.printer = printer
         self.hosts_info = hosts_info
@@ -231,54 +237,252 @@ class simpleVirt:
             self.printer.puts(
                 "Warning. Check if the environment was finished correctly.", True)
 
+    #AWS FUNCTIONS
+    
+    def get_ec2():
+        return boto3.client("ec2")
+        
+    def make_vertical_migration(self,ec2_client, instances_id, new_type):  
+        global  verbose
+        """
+        :type ec2_client: pyboto3.ec2
+        :type instances_id: list[str]]
+        :type new_type: str
+        :return:
+        """
 
-# def runTestScale():
-#     status = True
-#     try:
-#         src = connect2Host(hosts_info["src"])
-#         dest = connect2Host(hosts_info["dest"])
+    
 
-#         dom = startDom(guest_info["name"], src)
-#         # app = RemoteApp(printer, app_info, guest_info)
+        # waiters filter
+        filter = [
+            {'Name': 'instance-id',
+            'Values': instances_id}
+        ]
 
-#         # start new thread and exec application
-#         # thread1 = execThread(app)
+        # get instances
+        vms = self.get_instances(ec2_client, InstanceIds=instances_id)
 
-#         scale(dom, 3, 2000)
+        if not vms:
+            return
 
-#         #thread1.join()
+        # check if instances have a different type
+        for i in range(len(vms)):
+            if vms[i].instance_type == new_type:
+                self.log_print("Instance " + vms[i].id + "" \
+                " : The Vertical Migration will not be executed for this instance\n" \
+                " old_type and new_type are equal", verbose)
 
-#         out, err, code, runtime = app.getAppOutput()
-
-#         if code == 0:
-#             printer.puts("Application Finished with sucess")
-#             printer.puts("application runtime: " + str(runtime))
-
-#         else:
-#             printer.puts("Application Finished with error", True)
-#             printer.puts(err, True)
-#             printer.puts(out, True)
-#             print "Erro code: ", code
-
-
-#         # output csv
-#         if config["csv"]:
-#             with open(csv_info["path"]+csv_info["name"], "a") as csv:
-#                 csv.write(str(runtime) + "\n")
-
-#         # close environment
-#         # destroyDom(dom)
-#         src.close()
-#         dest.close()
-#         app.closeSSH()
-#     except Exception as e:
-#         printer.puts("ERROR: main test error", True)
-#         status = False
-#         print e
-#         traceback.print_exc()
-
-#     return status
+                # remove instance from the list
+                del vms[i]
 
 
-# def scaling():
-#     runTestScale()
+        # build boto3 waiters
+        waiter_stopped = ec2_client.get_waiter('instance_stopped')
+        waiter_running = ec2_client.get_waiter('instance_running')
+
+
+
+        # start time of the migration
+        start_time = timeit.default_timer()
+
+        self.log_print("stopping vms...", verbose)
+        # stopping vms
+        self.stop_instances(ec2_client, instances_id)
+
+        # wait until vms is completely stopped
+        waiter_stopped.wait(Filters=filter)
+
+        lap1 = timeit.default_timer()
+
+        try:
+            for vm in vms:
+                # update vm information
+                vm.reload()
+                self.log_print("Change vm: " + vm.id + "  " + vm.instance_type + " to " + new_type, verbose)
+                # Do vertical migration
+                vm.modify_attribute(InstanceType={'Value': new_type})
+                # start vm
+        except ClientError as e:
+            print e
+            return
+
+        self.start_instances(ec2_client, instances_id)
+        self.log_print("starting vms...", verbose)
+        # wait until vm is running
+        waiter_running.wait(Filters=filter)
+
+        stop = timeit.default_timer()
+
+        for vm in vms:
+            vm.reload
+            print vm.public_dns_name + "@" + str(lap1-start_time) + "@" + str(stop-lap1)
+
+
+        # print "Vertical Migration finished.\n" \
+        #       "Stopping time:", lap1 - start_time, "\n" \
+        #       "Starting time:", stop - lap1,  "\n" \
+        #       "Migration Total Time(s):", stop - start_time,  "\n" + 10*"*"
+
+    def create_vms(self,ec2_client, image_id, how_many, instance_type='t2.micro'):
+        global verbose
+
+        waiter_running = ec2_client.get_waiter('instance_running')
+
+        start = timeit.default_timer()
+
+        instances = self.create_instances(image_id, instanceType=instance_type, minCount=how_many, maxCount=how_many)
+
+        if not instances:
+            return
+
+        ids = []
+
+        for vm in instances:
+            ids.append(vm.id)
+
+        # waiters filter
+        filter = [
+            {'Name': 'instance-id',
+            'Values': ids}
+        ]
+    
+        self.log_print("waiting instances...", verbose)
+        waiter_running.wait(Filters=filter)
+        self.log_print("Instances is running...", verbose)
+
+
+        end = timeit.default_timer()
+
+        # print "create time (s): ", end - start
+        # print "num_vms: ", len(instances)
+
+        return instances, end-start
+
+    def get_instances(self,ec2_client, filters=[], InstanceIds=[]):
+        try:
+            response = ec2_client.describe_instances(Filters=filters, InstanceIds=InstanceIds)
+        except ClientError as e:
+            print e
+            return
+        """
+        :type ec2_client: pyboto3.ec2
+        :return: pyboto3.Ec2.Instance
+        """
+
+    
+
+        ec2_resource = boto3.resource('ec2')
+
+        instances = []
+
+        # get all instance ids
+        for reservationInfo in response['Reservations']:
+            for instanceInfo in reservationInfo['Instances']:
+                instances.append(ec2_resource.Instance(instanceInfo['InstanceId']))
+
+        return instances
+
+    def stop_instances(self,ec2_client, instance_ids=[], verbose=False):
+        """
+        :type ec2_client: pyboto3.ec2
+        :type instance_ids: list[str]
+        :return:
+        """
+
+        filter = [
+            {'Name': 'instance-state-name',
+            'Values': ['running']}
+            ]
+
+        running_instances = self.get_instances(ec2_client, filters=filter, InstanceIds=instance_ids)
+
+        if not running_instances:
+            return
+
+        for vm in running_instances:
+            self.log_print("Stopping: " + vm.id, verbose)
+            vm.stop()
+
+    def start_instances(self,ec2_client, instance_ids=[], verbose=False):
+        """
+        :type ec2_client: pyboto3.ec2
+        :type instance_ids: list[str]
+        :return:
+        """
+
+        filter = [
+            {'Name': 'instance-state-name',
+            'Values': ['stopped']}
+            ]
+
+        running_instances = self.get_instances(ec2_client, filters=filter, InstanceIds=instance_ids)
+
+        if not running_instances:
+            return
+
+        try:
+            for vm in running_instances:
+                self.log_print("Starting: " + vm.id, verbose)
+                vm.start()
+        except ClientError as e:
+            print e
+            return 
+
+    def terminate_instances(self,ec2_client, InstanceIds = [], verbose=False):
+        '''
+        :type ec2_client: pyboto3.ec2
+        :return:
+        '''
+
+        filter = [
+            {'Name': 'instance-state-name',
+            'Values': ['running', 'stopped']}
+        ]
+
+        instances = self.get_instances(ec2_client, filters=filter, InstanceIds=InstanceIds)
+
+        if not instances:
+            return
+        instances_ids = []
+        for vm in instances:
+            self.log_print("Terminating: " + vm.id, verbose)
+            vm.terminate()
+            instances_ids.append(vm.id)
+
+        waiter = ec2_client.get_waiter('instance_terminated')
+        waiter.wait(InstanceIds=instances_ids)
+
+    def create_instances(self,imageId, instanceType, securityGroups=['launch-wizard-2'],keyName='ec2', minCount=1, maxCount=1, verbose=False):
+        """
+        :type imageId:      str
+        :type instanceType: str
+        :type securityGroups: list[str]
+        :type keyName: str
+        :type minCount: int
+        :type maxCount: int
+        :return: list
+        """
+
+        ec2_resorce = boto3.resource("ec2")
+
+        try:
+            new_instances = ec2_resorce.create_instances(ImageId=imageId, InstanceType=instanceType,
+                                                    SecurityGroups=securityGroups, KeyName=keyName, MinCount=minCount,
+                                                    MaxCount=maxCount)
+        except ClientError as e:
+            print e
+            return
+
+
+        log_print("### New Instances: ###", verbose)
+
+        for vm in new_instances:
+            self.log_print(vm.id + " " +  vm.public_dns_name, verbose)
+
+        return new_instances
+
+    def log_print(self,msg, verbose):
+        if verbose:
+            print msg
+
+

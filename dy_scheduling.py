@@ -19,7 +19,7 @@ def main():
     parser.add_argument('--config', help='config file name',
                         default='default.conf')
     parser.add_argument('--module', help='Module name',
-                        choices=['migration', 'scaling','aws'], default='migration')
+                        choices=['migration', 'scaling', 'aws'], default='aws')
 
     args = parser.parse_args()
     conf = inputParser(args.config)
@@ -35,8 +35,7 @@ def main():
         scaling(conf).run()
     
     elif args.module == "aws":
-
-        print "starting Scaling project."
+        print "starting Aws project."
         aws(conf).run()
 
 

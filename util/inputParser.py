@@ -49,7 +49,10 @@ class inputParser:
         self.mailMeInfo = self.__getSections("mailMe")
         self.csvInfo = self.__getSections("csv")
         self.migrationInfo = self.__getSections("Migration")
+
+        self.ec2Info = self.__getSections("EC2")
         
         self.machineConfig = self.__getSections("MachineConfig")
 
-        print ""
+        self.dbConfig = self.__getSections("db")
+

@@ -52,7 +52,7 @@ def insert_price(conn, type, market, region, price, zone=None):
         print e
 
 
-def update_price(conn, type, market, region, price, zone):
+def update_price(conn, type, market, region, price, zone=None):
     sql = ""
     tpl = None
 

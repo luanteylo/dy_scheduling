@@ -63,8 +63,7 @@ def update_all_spot_prices(db_file):
                 memory = instance[2]
                 price = instance[3]
 
-                db.insert_price(conn, type, 0, region, price)
-
+                db.update_price(conn, type, 0, region, price)
 
         for region in output.keys():
             zones = prices.get_all_zones(region)

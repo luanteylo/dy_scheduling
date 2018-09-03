@@ -66,7 +66,6 @@ def get_all_zones(region):
     return zones
 
 
-
 #
 #     # get zones
 #     get_all_zones(region)

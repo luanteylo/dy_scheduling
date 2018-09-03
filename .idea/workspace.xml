@@ -2,22 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="865609d4-0bb2-4a81-972c-7c353547c6f1" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/util/Input Generator/database.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/util/Input Generator/db.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/awstest.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/database/createDB.sql" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/database/db.bin" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/database/start_db.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/diff.out" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/eagles" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/hosts.info" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/motorhead" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scaleTest1.conf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scaleTestBaterry.sh" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/scalingResults.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/Input Generator/create_db.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/Input Generator/create_db.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/Input Generator/db.bin" beforeDir="false" afterPath="$PROJECT_DIR$/util/Input Generator/db.bin" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/Input Generator/getSpotPrices.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/Input Generator/getSpotPrices.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,7 +18,7 @@
     <SUITE FILE_PATH="coverage/dy_scheduling$start_db.coverage" NAME="start_db Coverage Results" MODIFIED="1535994045023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/database" />
     <SUITE FILE_PATH="coverage/dy_scheduling$getSpotPrices.coverage" NAME="getSpotPrices Coverage Results" MODIFIED="1535996156930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
     <SUITE FILE_PATH="coverage/dy_scheduling$database.coverage" NAME="database Coverage Results" MODIFIED="1535996580196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
-    <SUITE FILE_PATH="coverage/dy_scheduling$create_db.coverage" NAME="create_db Coverage Results" MODIFIED="1536000188571" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
+    <SUITE FILE_PATH="coverage/dy_scheduling$create_db.coverage" NAME="create_db Coverage Results" MODIFIED="1536011575330" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -93,19 +82,42 @@
         </counts>
       </usages-collector>
     </session>
+    <session id="-1813283494">
+      <usages-collector id="statistics.lifecycle.project">
+        <counts>
+          <entry key="project.closed" value="1" />
+          <entry key="project.open.time.28" value="1" />
+          <entry key="project.open.time.7" value="1" />
+          <entry key="project.opened" value="2" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.extensions.edit">
+        <counts>
+          <entry key="py" value="447" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.file.types.edit">
+        <counts>
+          <entry key="Python" value="447" />
+        </counts>
+      </usages-collector>
+      <usages-collector id="statistics.js.language.service.starts" />
+      <usages-collector id="statistics.file.extensions.open" />
+      <usages-collector id="statistics.file.types.open" />
+    </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/Input Generator/getSpotPrices.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="524">
-              <caret line="68" selection-start-line="68" selection-end-line="68" />
+            <state relative-caret-position="165">
+              <caret line="54" column="17" lean-forward="true" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
               <folding>
                 <element signature="e#0#12#0" expanded="true" />
-                <marker date="1535996690483" expanded="true" signature="108:161" ph="..." />
-                <marker date="1535996690483" expanded="true" signature="2189:2479" ph="..." />
-                <marker date="1535996690483" expanded="true" signature="2753:2760" ph="..." />
+                <element signature="e#108#581#0" />
+                <element signature="e#614#2160#0" />
+                <element signature="e#2194#2476#0" />
               </folding>
             </state>
           </provider>
@@ -114,12 +126,11 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/util/Input Generator/create_db.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="17" column="60" lean-forward="true" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
+            <state relative-caret-position="749">
+              <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
               <folding>
                 <element signature="e#0#30#0" expanded="true" />
-                <marker date="1536000914558" expanded="false" signature="82:162" ph="..." />
-                <marker date="1536000914558" expanded="true" signature="521:1506" ph="..." />
+                <marker date="1536014053653" expanded="true" signature="1633:1634" ph="..." />
               </folding>
             </state>
           </provider>
@@ -128,19 +139,10 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/Input Generator/database.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="392">
-              <caret line="102" selection-start-line="102" selection-end-line="108" />
+            <state relative-caret-position="615">
+              <caret line="80" column="42" lean-forward="true" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
               <folding>
                 <element signature="e#0#14#0" expanded="true" />
-                <element signature="e#53#348#0" />
-                <element signature="e#402#605#0" />
-                <element signature="e#679#1201#0" />
-                <element signature="e#1276#1857#0" />
-                <element signature="e#643#763#1" />
-                <element signature="e#935#1100#0" />
-                <marker date="1536000781328" expanded="false" signature="1862:1865" ph="..." />
-                <marker date="1536000781328" expanded="true" signature="1895:2495" ph="..." />
-                <marker date="1536000781328" expanded="true" signature="2190:2376" ph="..." />
               </folding>
             </state>
           </provider>
@@ -150,7 +152,7 @@
         <entry file="file://$PROJECT_DIR$/docs/database/createDB.sql">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="30">
-              <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+              <caret line="2" selection-start-line="2" selection-end-line="2" />
             </state>
           </provider>
         </entry>
@@ -172,6 +174,7 @@
       <find>ec2_info</find>
       <find>securet</find>
       <find>vm</find>
+      <find>(&quot;db.bin&quot;</find>
     </findStrings>
     <dirStrings>
       <dir>$PROJECT_DIR$</dir>
@@ -196,9 +199,9 @@
         <option value="$PROJECT_DIR$/util/Input_Generator/getSpotPrices.py" />
         <option value="$PROJECT_DIR$/docs/database/start_db.py" />
         <option value="$PROJECT_DIR$/docs/database/MyDatabase.py" />
-        <option value="$PROJECT_DIR$/util/Input Generator/getSpotPrices.py" />
         <option value="$PROJECT_DIR$/util/Input Generator/database.py" />
         <option value="$PROJECT_DIR$/docs/database/createDB.sql" />
+        <option value="$PROJECT_DIR$/util/Input Generator/getSpotPrices.py" />
         <option value="$PROJECT_DIR$/util/Input Generator/create_db.py" />
       </list>
     </option>
@@ -219,7 +222,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -232,10 +234,22 @@
               <item name="dy_scheduling" type="462c0819:PsiDirectoryNode" />
               <item name="docs" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="dy_scheduling" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dy_scheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="dy_scheduling" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dy_scheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="venv" type="462c0819:PsiDirectoryNode" />
+              <item name="lib" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -384,14 +398,15 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
+    <frame x="0" y="0" width="1680" height="1020" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25773746" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.26499388" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32896176" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.32896176" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.32896176" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -442,27 +457,9 @@
     <entry file="file://$PROJECT_DIR$/modules/scaling.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/awstest.conf">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="21" selection-start-line="21" selection-end-line="26" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/boto3/session.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2190">
-          <caret line="264" column="8" selection-start-line="264" selection-start-column="8" selection-end-line="264" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/boto3/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="332">
-          <caret line="99" column="38" selection-start-line="99" selection-start-column="38" selection-end-line="99" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/awstest.conf" />
+    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/boto3/session.py" />
+    <entry file="file://$PROJECT_DIR$/venv/local/lib/python2.7/site-packages/boto3/__init__.py" />
     <entry file="file://$PROJECT_DIR$/modules/migration.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1313">
@@ -488,9 +485,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="24" column="27" selection-start-line="24" selection-start-column="27" selection-end-line="24" selection-end-column="27" />
-          <folding>
-            <element signature="e#20#31#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -512,29 +506,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="224">
           <caret line="15" column="53" lean-forward="true" selection-start-line="15" selection-start-column="53" selection-end-line="15" selection-end-column="53" />
-          <folding>
-            <element signature="e#21#32#0" expanded="true" />
-            <marker date="1534951154279" expanded="true" signature="5363:5697" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/database/createDB.sql.old">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/database/createDB.sql.old" />
     <entry file="file://$PROJECT_DIR$/modules/aws.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="525">
           <caret line="45" column="12" selection-start-line="45" selection-start-column="12" selection-end-line="45" selection-end-column="12" />
-          <folding>
-            <element signature="e#21#66#0" expanded="true" />
-            <marker date="1535044932636" expanded="true" signature="948:969" ph="..." />
-            <marker date="1535044932636" expanded="true" signature="983:993" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -545,56 +524,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/docs/database/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/Input Generator/getSpotPrices.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="524">
-          <caret line="68" selection-start-line="68" selection-end-line="68" />
-          <folding>
-            <element signature="e#0#12#0" expanded="true" />
-            <marker date="1535996690483" expanded="true" signature="108:161" ph="..." />
-            <marker date="1535996690483" expanded="true" signature="2189:2479" ph="..." />
-            <marker date="1535996690483" expanded="true" signature="2753:2760" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/docs/database/__init__.py" />
     <entry file="file://$PROJECT_DIR$/docs/database/createDB.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="30">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
+          <caret line="2" selection-start-line="2" selection-end-line="2" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/util/Input Generator/database.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="392">
-          <caret line="102" selection-start-line="102" selection-end-line="108" />
+        <state relative-caret-position="615">
+          <caret line="80" column="42" lean-forward="true" selection-start-line="80" selection-start-column="42" selection-end-line="80" selection-end-column="42" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
-            <element signature="e#53#348#0" />
-            <element signature="e#402#605#0" />
-            <element signature="e#679#1201#0" />
-            <element signature="e#1276#1857#0" />
-            <element signature="e#643#763#1" />
-            <element signature="e#935#1100#0" />
-            <marker date="1536000781328" expanded="false" signature="1862:1865" ph="..." />
-            <marker date="1536000781328" expanded="true" signature="1895:2495" ph="..." />
-            <marker date="1536000781328" expanded="true" signature="2190:2376" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/Input Generator/getSpotPrices.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="54" column="17" lean-forward="true" selection-start-line="54" selection-start-column="17" selection-end-line="54" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#12#0" expanded="true" />
+            <element signature="e#108#581#0" />
+            <element signature="e#614#2160#0" />
+            <element signature="e#2194#2476#0" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/util/Input Generator/create_db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="17" column="60" lean-forward="true" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
+        <state relative-caret-position="749">
+          <caret line="80" lean-forward="true" selection-start-line="80" selection-end-line="80" />
           <folding>
             <element signature="e#0#30#0" expanded="true" />
-            <marker date="1536000914558" expanded="false" signature="82:162" ph="..." />
-            <marker date="1536000914558" expanded="true" signature="521:1506" ph="..." />
+            <marker date="1536014053653" expanded="true" signature="1633:1634" ph="..." />
           </folding>
         </state>
       </provider>

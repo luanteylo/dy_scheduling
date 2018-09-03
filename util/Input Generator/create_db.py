@@ -50,6 +50,13 @@ def insert_all_prices(db_file):
                     # db.insert_price(conn, instance[0], 1, region, spot_price, zone)
 
 
+def insert_random_tasks(db_file, n):
+    pass
+
+def insert_random_running(db_file, instances, job_id):
+    pass
+
+
 def update_all_spot_prices(db_file):
     output = prices.get_ondemand_price()
     conn = db.create_connection(db_file)

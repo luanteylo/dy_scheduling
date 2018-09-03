@@ -3,8 +3,6 @@ import boto3
 import re
 import urllib2
 
-import database as db
-
 
 def get_spot_price(type, region, zone):
     client = boto3.client('ec2', region_name=region)
@@ -64,26 +62,3 @@ def get_all_zones(region):
         zones.append(zone["ZoneName"])
 
     return zones
-
-
-#
-#     # get zones
-#     get_all_zones(region)
-
-#     print region
-#
-#     for instance in output[region]:
-#
-#         print instance[-3], get_spot_price(instance[0], region, )
-
-
-#
-# conn = db.create_connection("db.bin")
-#
-# with conn:
-#     db.select_all_instance(conn)
-#
-#
-#
-#
-#

@@ -6,5 +6,9 @@
       <auth-required>false</auth-required>
       <introspection-schemas>*:</introspection-schemas>
     </data-source>
+    <data-source name="db [2]" uuid="510850b7-4c8e-4c07-a70c-c50a9cbd374a">
+      <database-info product="" version="" jdbc-version="" driver-name="" driver-version="" family="SQLITE" exact-version="0.0" />
+      <auth-required>false</auth-required>
+    </data-source>
   </component>
 </project>

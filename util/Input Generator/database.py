@@ -28,6 +28,28 @@ def insert_instance(conn, type, memory, vcpu):
         print e
 
 
+def insert_task(conn, job_id, task_id, name, memory, io_size):
+
+    sql = ''' INSERT INTO tasks(job_id, task_id, name, memory, io_size)  VALUES(?, ?, ?, ?, ?) '''
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (job_id, task_id, name, memory, io_size))
+    except sqlite3.Error as e:
+        print e
+
+
+def insert_execution(conn, job_id, task_id, run_id, type, runtime, status="sucess"):
+
+    sql = ''' INSERT INTO execution(job_id, task_id, run_id, type, runtime, status)  VALUES (?, ?, ?, ?, ?, ?) '''
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (job_id, task_id, run_id,  type, runtime, status))
+    except sqlite3.Error as e:
+        print e
+
+
 def insert_price(conn, type, market, region, price, zone=None):
     sql = ""
     tpl = None
@@ -76,6 +98,84 @@ def update_price(conn, type, market, region, price, zone=None):
         print e
 
 
+def select_job(conn, job_id):
+
+    rows = []
+
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM tasks where job_id = ?", (job_id,))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
+
+
+def select_execution(conn, run_id):
+    rows = []
+
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM execution where run_id = ?", (run_id,))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
+
+
+def select_instance(conn, type):
+    rows = []
+
+    try:
+        cur = conn.cursor()
+        cur.execute("SELECT * FROM instances where type = ?", (type,))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
+
+
+def select_instance_price(conn, type, market, region, zone=None):
+    sql = ""
+    tpl = None
+
+    if market == 0:  # ondemand
+        sql = '''
+            SELECT * FROM prices where type = ? and region = ? and  market = ?        
+            '''
+        tpl = (type, region, market)
+    else:  # spot
+        sql = '''
+            SELECT * FROM prices where type = ? and region = ? and  market = ? and zone = ?        
+            '''
+        tpl = (type, region, market, zone)
+
+    # print sql, tpl
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, tpl)
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
+
+def select_runtime(conn, job_id, task_id, type):
+    sql = ''' select avg(runtime) from execution where job_id = ? and task_id =  ? and type = ?'''
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (job_id, task_id, type))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows[0][0]
+
 def select_all_instance(conn):
     """
         Query all rows in the instance table
@@ -87,8 +187,20 @@ def select_all_instance(conn):
 
     rows = cur.fetchall()
 
-    for row in rows:
-        print(row)
+    return rows
+
+
+def select_all_job_instances(conn, job_id):
+    sql = '''select DISTINCT instances.type  from execution, instances where execution.job_id = ? and execution.type = instances.type'''
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (job_id,))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
 
 
 def delete_instance(conn, type):

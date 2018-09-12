@@ -11,6 +11,10 @@ import timeit
 import traceback
 # Scaling module
 
+EXECUTE_COMMAND_1 = 0
+EXECUTE_COMMAND_2 = 1
+
+
 class scaling:
 
     def __init__(self, inputParser):
@@ -68,7 +72,7 @@ class scaling:
             
             start_time = timeit.default_timer()
 
-            src = self.virt.connect2Host(self.hostsInfo["src"])
+            src = self.virt.connect2Host(self.hostsInfo["src"], self.guestInfo["hypervisor"])
             
             dom = self.virt.getDomByName(self.guestInfo["name"],src)
             
@@ -81,6 +85,7 @@ class scaling:
             setup_time = timeit.default_timer()
             
             app = remoteApp(self.printer, self.appInfo, self.guestInfo)
+            app2 = remoteApp(self.printer, self.appInfo, self.guestInfo,EXECUTE_COMMAND_2)
             # start new thread and exec application
             thread1 = self.__execThread(app)
                            
@@ -92,11 +97,11 @@ class scaling:
             
             scale_time = timeit.default_timer()
             
-            thread1 = self.__execThread(app)
+            #thread1 = self.__execThread(app)
             
             thread1.join()
             
-            thread1 = self.__execThread(app)
+            thread1 = self.__execThread(app2)
             
             thread1.join()
             

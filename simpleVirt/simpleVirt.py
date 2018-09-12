@@ -32,8 +32,13 @@ class simpleVirt:
 
         self.printer = printer
         
-    def connect2Host(self, host):
-        conn = libvirt.open('qemu+ssh://' + host + '/system')
+    def connect2Host(self, host, hypervisor):
+	if(hypervisor == "kvm"):        
+	    conn = libvirt.open('qemu+ssh://' + host + '/system')
+	if(hypervisor == "virtual_box"):
+	    conn = libvirt.open('vbox:///session')
+
+
         if conn == None:
             self.printer.puts('Failed to connect to the hypervizor', True)
         else:
@@ -324,11 +329,7 @@ class simpleVirt:
         #       "Migration Total Time(s):", stop - start_time,  "\n" + 10*"*"
 
     def create_vms(self,ec2_client, image_id, how_many, instance_type='t2.micro'):
-        global verbose
-
         waiter_running = ec2_client.get_waiter('instance_running')
-
-        start = timeit.default_timer()
 
         instances = self.create_instances(image_id, instanceType=instance_type, minCount=how_many, maxCount=how_many)
 
@@ -350,13 +351,10 @@ class simpleVirt:
         waiter_running.wait(Filters=filter)
         self.log_print("Instances is running...", verbose)
 
-
-        end = timeit.default_timer()
-
         # print "create time (s): ", end - start
         # print "num_vms: ", len(instances)
 
-        return instances, end-start
+        return instances
 
     def get_instances(self,ec2_client, filters=[], InstanceIds=[]):
         try:
@@ -452,7 +450,7 @@ class simpleVirt:
         waiter = ec2_client.get_waiter('instance_terminated')
         waiter.wait(InstanceIds=instances_ids)
 
-    def create_instances(self,imageId, instanceType, securityGroups=['launch-wizard-2'],keyName='ec2', minCount=1, maxCount=1, verbose=False):
+    def create_instances(self,imageId, instanceType, securityGroups=['default'],keyName='MatheusMotorhead.pem', minCount=1, maxCount=1, verbose=False):
         """
         :type imageId:      str
         :type instanceType: str

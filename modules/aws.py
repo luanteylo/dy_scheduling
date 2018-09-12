@@ -8,7 +8,8 @@ from util.printer import printer
 from util.thread import thread
 
 import traceback
-
+import boto3 
+from botocore.exceptions import ClientError, ConfigParseError
 # test
 
 class aws:
@@ -68,7 +69,6 @@ class aws:
 
         status = True
 
-        try:
 
             #src = self.virt.connect2Host(self.hostsInfo["src"])
             #dest = self.virt.connect2Host(self.hostsInfo["dest"])
@@ -77,48 +77,57 @@ class aws:
             #dom = self.virt.startDom(self.guestInfo["name"], src)
 
 
-	    client = self.virt.get_ec2()
+        ec2 = boto3.resource('ec2')
 
-	    instances, time = self.virt.create_vms(ec2_client, "ami-5650702d", 1, "t2.micro")
-
-            app = remoteApp(self.printer, self.appInfo, self.guestInfo)
+	    #instances = self.virt.create_vms(client, "ami-5650702d", 1, "t2.micro")
+            
+            
+            
+        instances = ec2.create_instances(ImageId='ami-6dca9001', 
+                                        MinCount=1, 
+                                        MaxCount=1,
+                                        KeyName="MatheusMotorhead",
+                                        InstanceType="t2.micro")
+        for instance in instances:
+            print(instance.id, instance.instance_type)
+            #app = remoteApp(self.printer, self.appInfo, self.guestInfo)
 
             # start new thread and exec application
-            thread1 = self.__execThread(app)
+            #thread1 = self.__execThread(app)
 
             
 
-            out, err, code, runtime = app.getAppOutput()
+            #out, err, code, runtime = app.getAppOutput()
 
-            if code == 0:
-                self.printer.puts("Application Finished with sucess")
-                self.printer.puts("application runtime: " + str(runtime))
+            #if code == 0:
+            #    self.printer.puts("Application Finished with sucess")
+            #    self.printer.puts("application runtime: " + str(runtime))
                 # self.printer.puts(out)
 
-            else:
-                self.printer.puts("Application Finished with error", True)
-                self.printer.puts(err, True)
-                self.printer.puts(out, True)
-                print "Erro code: ", code
+            #else:
+            #    self.printer.puts("Application Finished with error", True)
+            #    self.printer.puts(err, True)
+            #    self.printer.puts(out, True)
+            #    print "Erro code: ", code
 
             # output csv
-            if self.configInfo["csv"]:
-                with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
-                    csv.write(str(runtime) + "\n")
+            #if self.configInfo["csv"]:
+            #    with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
+            #        csv.write(str(runtime) + "\n")
 
             # finish environment
-            self.virt.destroyDom(dom)
+            #self.virt.terminate_instances(client, instances, verbose=False)
 
-            src.close()
-            dest.close()
-            app.closeSSH()
+            #src.close()
+            #dest.close()
+            #app.closeSSH()
 
-        except Exception as e:
+        #except Exception as e:
 
-            self.printer.puts("ERROR: error during the test execution", True)
-            status = False
-            print e
-            traceback.print_exc()
+        #    self.printer.puts("ERROR: error during the test execution", True)
+        #    status = False
+        #    print e
+        #    traceback.print_exc()
 
         return status
 

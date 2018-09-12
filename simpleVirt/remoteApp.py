@@ -7,9 +7,13 @@ import time
 
 class remoteApp:
 
-	def __init__(self, printer, app_info, guest_info):
+	def __init__(self, printer, app_info, guest_info, flag = 0):
 		# app info
-		self.command = app_info["command"]
+		if(flag == 0):
+                    self.command = app_info["command1"]
+		else:
+                    self.command = app_info["command2"]
+                
 		self.app_path = app_info["path"]
 
 

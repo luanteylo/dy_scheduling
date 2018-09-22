@@ -6,6 +6,7 @@ PATH = "/home/luan/project/static_heuristic/input/"
 env_file = "aws.json"
 job_file = "job.json"
 
+slot_time = 3600
 
 def get_all_prices(db_file, type, regions):
     dict = {}
@@ -77,7 +78,7 @@ def generate_envFile(db_file, job_id, regions):
                 instances_dict[row[0][0]] = {"memory": row[0][1], "vcpu": row[0][2], "price": prices}
 
     with open(PATH + env_file, 'w') as fp:
-        json.dump(instances_dict, fp, indent=4, sort_keys=True)
+        json.dump({"slot_time": slot_time, "instances": instances_dict}, fp, indent=4, sort_keys=True)
 
     generate_jobFile(db_file, instances, job_id)
 
@@ -135,11 +136,11 @@ def generate_jobFile(db_file, instances,  job_id):
 #     "c5.9xlarge",
 #     "c4.8xlarge"]
 
-regions = {"us-east-1": ["us-east-1a"], "us-west-1": ["us-west-1b", "us-west-1c"]}
+regions = {"us-west-1": ["us-west-1b"]}
 
 
 
-generate_envFile("db.bin", 41, regions)
+generate_envFile("db.bin", 83, regions)
 
 
 # generate_jobFile("db.bin", instances, 41)

@@ -86,17 +86,26 @@ def insert_random_execution(db_file, min_time, max_time, instances_type, job_id)
                 run_id = randint(1, 100)
 
             for row in rows:
+                # print row
                 task_id = row[1]
                 base_time = round(uniform(min_time, max_time), 2)
                 ftr = 0.0
                 for type in instances_type:
-                    # define task runtime
-                    runtime = math.ceil(ftr * base_time + base_time)
-                    db.insert_execution(conn, job_id, task_id, run_id, type, runtime)
-                    ftr += 0.1
+                    # if task.memory <= instance.memory
 
+                    info_inst = db.select_instance(conn, type)
+
+
+                    inst_memory = info_inst[0][1]
+                    task_memory = row[3]
+
+                    # define task runtime
+                    if inst_memory >= task_memory:
+                        runtime = math.ceil(ftr * base_time + base_time)
+                        db.insert_execution(conn, job_id, task_id, run_id, type, runtime)
+                        ftr += 0.1
         else:
-            print "Job " + str(job_id) + " don't exist"
+            print "Job " + str(job_id) + " doesn't exist"
 
 
 def update_all_spot_prices(db_file):
@@ -128,23 +137,8 @@ def update_all_spot_prices(db_file):
 
 instances = [
     "c5.large",
-    "m5.large",
-    "m4.large",
-    "c4.large",
-    "c5.xlarge",
-    "m5.xlarge",
-    "m4.xlarge",
-    "c4.xlarge",
-    "c5.2xlarge",
-    "m5.2xlarge",
-    "m4.2xlarge",
-    "c4.2xlarge",
-    "c5.4xlarge",
-    "m5.4xlarge",
-    "m4.4xlarge",
-    "c4.4xlarge",
-    "c5.9xlarge",
-    "c4.8xlarge"]
+    "m5.large"]
 
-
-insert_random_execution("db.bin", 1, 60, instances, 41)
+# insert_random_tasks("db.bin",0.5, 2.0, 0.5, 2.0, 5)
+insert_random_execution("db.bin",1, 60, instances, 83)
+# insert_random_execution("db.bin", 1, 60, instances, 41)

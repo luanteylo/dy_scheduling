@@ -1,0 +1,52 @@
+{
+	"deadline": 450,
+	"vms": {
+			"1": {
+				"type":"c5.large",
+				"market":"spot",
+				"region":"us-west-1",
+				"zone":"us-west-1b",
+				"price": 0.5,
+				"map":  {
+					"0": {
+						"1": {
+							"start":0,
+							"end":100
+						},
+						"3": {
+							"start":100,
+							"end":300
+						}
+					},
+					"1": {
+						"2": {
+							"start":0,
+							"end":200
+						},
+						"0": {
+							"start":200,
+							"end":300
+						}
+					}
+				}
+			},
+			"2": {
+				"type":"c5.large",
+				"market":"spot",
+				"region":"us-west-1",
+				"zone":"us-west-1b",
+				"price": 0.5,
+				"map":  {
+					"0": {
+					},
+					"1": {
+						"4": {
+							"start":0,
+							"end":250
+						}
+					}
+				}
+			}
+
+	}
+}

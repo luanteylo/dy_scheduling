@@ -3,8 +3,8 @@ import json
 
 path = "/home/luan/Dropbox/UFF - Doutorado/traces/spot_history/by_type/"
 
-
 SLOT = 60
+THRESHOLD = 0.01974
 
 
 def load_spot_history(file_name):
@@ -25,7 +25,7 @@ def load_spot_history(file_name):
             else:
                 key2 = second
 
-                print key1, key2, second, price
+                # print key1, key2, second, price
                 T[key1:key2] = aux_price
 
                 # update to nex insertion
@@ -54,6 +54,8 @@ class VM:
 
         self.hibernate_start = -1
 
+        self.allocated = False
+
     def print_vm(self):
         print self.id, self.type, self.market, self.region, self.zone, self.price, self.end
         print self.intervals
@@ -62,22 +64,35 @@ class VM:
         self.intervals[start:end] = task_id
         self.assigned_tasks.append(task_id)
 
+        # put in exec_tasks tasks that will
+        # execute at period start
+        self.exec_tasks = []
+        interval = self.intervals.search(start)
+        for itv in interval:
+            self.exec_tasks.append(itv.data)
+
     def update(self, period):
         # check if the execution get
         # a new slot of time
-        if period == self.end_slot:
+        if period >= self.end_slot:
             self.end_slot += SLOT
             self.cost += self.price
 
+        # put in exec_tasks tasks
+        #  that are executing at that period
         self.exec_tasks = []
         interval = self.intervals.search(period)
         for itv in interval:
             self.exec_tasks.append(itv.data)
 
+        self.allocated = True
+
 
 running = []
 finished = []
 hibernate = []
+
+vm_type = []
 
 backup = dict()
 
@@ -92,6 +107,9 @@ def build_VM(data, vm_id, start_bkp=-1):
     zone = data[vm_id]["zone"]
     price = data[vm_id]["price"]
 
+    if market == "spot" and type not in vm_type:
+        vm_type.append(type)
+
     vm = VM(vm_id, type, market, region, zone, price)
 
     map = data[vm_id]["map"]
@@ -105,10 +123,11 @@ def build_VM(data, vm_id, start_bkp=-1):
             if start_bkp != -1:
                 start += start_bkp
                 end += start_bkp
-                vm.end_slot += start_bkp
-
             # intervals[start:end] = task_id
             vm.add_interval(start, end, task_id)
+
+    if start_bkp != -1:
+        vm.end_slot += start_bkp
 
     return vm
 
@@ -147,16 +166,17 @@ def start_execution(file_primary, file_backup):
 
     # load scheduling map
 
-    global backup, deadline
+    global backup, deadline, vm_type
     global running, hibernate, finished
 
     load_primary(file_primary)
     load_backup(file_backup)
 
-    # History = dict()
-    #
-    # for vm_type = history_files:
-    #     History[vm_type]  = load_spot_history("us-west-1-%s.csv")
+    history = dict()
+
+    for type in vm_type:
+        print "\n#\t Loading Spot History instance [%s] ... \n" % (type,)
+        history[type] = load_spot_history("us-west-1-%s.csv" % (type,))
 
     print "\n#\n#\tStart Execution "
     print "#"
@@ -168,9 +188,13 @@ def start_execution(file_primary, file_backup):
     deadline_flag = False
     period = 0
 
+    number_hibernation = 0
+    number_recovery = 0
+    number_resume = 0
+
     while len(running) > 0 or len(hibernate) > 0:
 
-        print "%d:\t" % (period,)
+        print "%d: [%f]\t" % (period, history["c4.large"].search(period).pop().data)
 
         # check if the solution
         # has passed the deadline
@@ -200,11 +224,13 @@ def start_execution(file_primary, file_backup):
                 hibernate.remove(vm)
                 finished.append(vm)
                 running.append(vm_bkp)
+
+                number_recovery += 1
                 print "\t [%s] RECOVERING (HT: %s, vm_bkp: %s)" % (vm.id, head_task, vm_bkp.id)
                 continue
 
-            # check if vm resume
-            if vm.id == "1" and period == 150:
+            # check if vm have to be resumed
+            if history[vm.type].search(period).pop().data < THRESHOLD:
                 # if vm resume, then we have to update its interval
                 size = period - vm.hibernate_start
 
@@ -215,7 +241,7 @@ def start_execution(file_primary, file_backup):
                     end = it.end
                     task_id = it.data
 
-                    if task_id not in vm.exec_tasks:
+                    if task_id not in vm.exec_tasks or vm.allocated is False:
                         start += size
 
                     end += size
@@ -226,6 +252,8 @@ def start_execution(file_primary, file_backup):
 
                 hibernate.remove(vm)
                 running.append(vm)
+
+                number_resume += 1
                 print "\t [%s] RESUMING = Wait Period: %d" % (vm.id, size)
                 continue
 
@@ -247,10 +275,12 @@ def start_execution(file_primary, file_backup):
 
             # check if there is a fault in that period
             # if true, we have to move the vm to hibernate
-            if vm.id == "1" and period == 100:
+            if vm.market == "spot" and history[vm.type].search(period).pop().data > THRESHOLD:
                 running.remove(vm)
                 vm.hibernate_start = period
                 hibernate.append(vm)
+
+                number_hibernation += 1
                 print "\t [%s] HIBERNATING" % (vm.id,)
                 continue
 
@@ -262,18 +292,22 @@ def start_execution(file_primary, file_backup):
 
     print "\n\n"
     if not deadline_flag:
-        print "#\tExecution Finished with Success."
+        print "#\tExecution Finished with Success at Period ", period -1
     else:
-        print "#\tExecution Finished with ERROR: Deadline was not meeting"
-
-    print "#\tFinished Period: ", period - 1
+        print "#\tExecution Finished with ERROR at Period ", period -1
+    print "#\tHibernation:", number_hibernation, "\tResume:", number_resume, "\tRecovery:", number_recovery
     print "#\tRunning: ", [vm.id for vm in running]
     print "#\tHibernate: ", [vm.id for vm in hibernate]
     print "#\tFinished: ", [vm.id for vm in finished]
 
+    # compute the execution cos
     cost = 0.0
+    # if the is in the finished list and it was allocated,
+    # then we add its cost
     for vm in finished:
-        cost += vm.cost
+        if vm.allocated is True:
+            # print vm.id, vm.market, vm.cost
+            cost += vm.cost
     print "#\tExecution Cost: ", cost
 
 

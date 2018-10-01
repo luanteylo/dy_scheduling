@@ -2,7 +2,7 @@
 	"deadline": 450,
 	"vms": {
 			"1": {
-				"type":"c5.large",
+				"type":"c4.large",
 				"market":"spot",
 				"region":"us-west-1",
 				"zone":"us-west-1b",
@@ -31,7 +31,7 @@
 				}
 			},
 			"2": {
-				"type":"c5.large",
+				"type":"c4.large",
 				"market":"spot",
 				"region":"us-west-1",
 				"zone":"us-west-1b",

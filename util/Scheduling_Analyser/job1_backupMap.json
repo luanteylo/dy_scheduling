@@ -3,7 +3,7 @@
 		"start_bkp": 350,
 		"vms": {
 			"3": {
-				"type":"c5.large",
+				"type":"c4.large",
 				"market":"on-demand",
 				"region":"us-west-1",
 				"zone":"",
@@ -25,7 +25,7 @@
 		"start_bkp": 150,
 		"vms": {
 			"3": {
-				"type":"c5.large",
+				"type":"c4.large",
 				"market":"on-demand",
 				"region":"us-west-1",
 				"zone":"",
@@ -59,7 +59,7 @@
 		"start_bkp": 360,
 		"vms": {
 			"5": {
-				"type":"m5.large",
+				"type":"m4.large",
 				"market":"on-demand",
 				"region":"us-west-1",
 				"zone":"",
@@ -89,7 +89,7 @@
 		"start_bkp": 390,
 		"vms": {
 			"5": {
-				"type":"m5.large",
+				"type":"m4.large",
 				"market":"on-demand",
 				"region":"us-west-1",
 				"zone":"",
@@ -115,7 +115,7 @@
 		"start_bkp": 380,
 		"vms": {
 			"7": {
-				"type":"m5.large",
+				"type":"m4.large",
 				"market":"on-demand",
 				"region":"us-west-1",
 				"zone":"",

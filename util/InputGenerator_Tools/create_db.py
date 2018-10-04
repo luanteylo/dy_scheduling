@@ -142,3 +142,4 @@ instances = [
 # insert_random_tasks("db.bin",0.5, 2.0, 0.5, 2.0, 5)
 insert_random_execution("db.bin",1, 60, instances, 83)
 # insert_random_execution("db.bin", 1, 60, instances, 41)
+

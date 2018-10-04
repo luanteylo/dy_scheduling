@@ -29,7 +29,6 @@ def insert_instance(conn, type, memory, vcpu):
 
 
 def insert_task(conn, job_id, task_id, name, memory, io_size):
-
     sql = ''' INSERT INTO tasks(job_id, task_id, name, memory, io_size)  VALUES(?, ?, ?, ?, ?) '''
 
     try:
@@ -40,12 +39,11 @@ def insert_task(conn, job_id, task_id, name, memory, io_size):
 
 
 def insert_execution(conn, job_id, task_id, run_id, type, runtime, status="sucess"):
-
     sql = ''' INSERT INTO execution(job_id, task_id, run_id, type, runtime, status)  VALUES (?, ?, ?, ?, ?, ?) '''
 
     try:
         cur = conn.cursor()
-        cur.execute(sql, (job_id, task_id, run_id,  type, runtime, status))
+        cur.execute(sql, (job_id, task_id, run_id, type, runtime, status))
     except sqlite3.Error as e:
         print e
 
@@ -99,7 +97,6 @@ def update_price(conn, type, market, region, price, zone=None):
 
 
 def select_job(conn, job_id):
-
     rows = []
 
     try:
@@ -164,6 +161,7 @@ def select_instance_price(conn, type, market, region, zone=None):
 
     return rows
 
+
 def select_runtime(conn, job_id, task_id, type):
     sql = ''' select avg(runtime) from execution where job_id = ? and task_id =  ? and type = ?'''
 
@@ -175,6 +173,7 @@ def select_runtime(conn, job_id, task_id, type):
         print e
 
     return rows[0][0]
+
 
 def select_all_instance(conn):
     """
@@ -211,6 +210,20 @@ def delete_instance(conn, type):
         cur.execute(sql, (type,))
     except sqlite3.Error as e:
         print e
+
+
+def select_instances_by_price(conn, region, market=0):
+    sql = ''' SELECT instances.type, prices FROM instances, prices 
+    WHERE region like ? and market = ? and instances.type = prices.type order by price'''
+
+    try:
+        cur = conn.cursor()
+        cur.execute(sql, (region, market))
+        rows = cur.fetchall()
+    except sqlite3.Error as e:
+        print e
+
+    return rows
 
 #
 # Test

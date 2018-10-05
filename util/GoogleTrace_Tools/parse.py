@@ -149,6 +149,8 @@ def parse_task():
 
     # with open(parse_dir + "task_parse.csv", "w") as f:
 
+    biggest = 0.0
+
     for jobid in tasks:
 
         start_dict = tasks[jobid][0]
@@ -173,14 +175,19 @@ def parse_task():
                     hadTasks = False
                     break
 
-                line += jobid + "," + str(task_id) + "," + timestamp1 + "," + timestamp2 + "," + str(memory) + "," + str(
-                    runtime) + "\n"
+                if (runtime/60.0/60.0)/24.0 < 12:
 
-                hadTasks = True
+                    line += jobid + "," + str(task_id) + "," + timestamp1 + "," + timestamp2 + "," + str(memory) + "," + str(
+                        runtime) + "\n"
+
+                    hadTasks = True
+
 
         if hadTasks and len(line.split("\n")) > 10:
             with open(parse_dir + jobid + ".csv", "w") as f:
                 f.write(line)
+
+    print "#\tMax runtime: ", biggest
 
 
 parse_task()

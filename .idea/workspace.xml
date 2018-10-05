@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="865609d4-0bb2-4a81-972c-7c353547c6f1" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/InputGenerator_Tools/db.bin" beforeDir="false" afterPath="$PROJECT_DIR$/util/InputGenerator_Tools/db.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -14,9 +13,11 @@
   </component>
   <component name="CoverageDataManager">
     <SUITE FILE_PATH="coverage/dy_scheduling$start_db.coverage" NAME="start_db Coverage Results" MODIFIED="1535994045023" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/docs/database" />
+    <SUITE FILE_PATH="coverage/dy_scheduling$analyser__1_.coverage" NAME="analyser (1) Coverage Results" MODIFIED="1538759933910" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Scheduling_Analyser" />
     <SUITE FILE_PATH="coverage/dy_scheduling$getSpotPrices.coverage" NAME="getSpotPrices Coverage Results" MODIFIED="1535996156930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
     <SUITE FILE_PATH="coverage/dy_scheduling$database.coverage" NAME="database Coverage Results" MODIFIED="1535996580196" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
     <SUITE FILE_PATH="coverage/dy_scheduling$generate_input.coverage" NAME="generate_input Coverage Results" MODIFIED="1537362614192" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
+    <SUITE FILE_PATH="coverage/dy_scheduling$parse.coverage" NAME="parse Coverage Results" MODIFIED="1538751199548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/GoogleTrace_Tools" />
     <SUITE FILE_PATH="coverage/dy_scheduling$create_db.coverage" NAME="create_db Coverage Results" MODIFIED="1537207605453" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/Input Generator" />
     <SUITE FILE_PATH="coverage/dy_scheduling$parse_spot_history.coverage" NAME="parse_spot_history Coverage Results" MODIFIED="1537988845819" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util" />
     <SUITE FILE_PATH="coverage/dy_scheduling$parse2DB.coverage" NAME="parse2DB Coverage Results" MODIFIED="1538657990882" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/util/InputGenerator_Tools" />
@@ -52,14 +53,15 @@
           <entry key="project.open.time.46" value="1" />
           <entry key="project.open.time.8" value="1" />
           <entry key="project.open.time.81" value="1" />
-          <entry key="project.opened" value="8" />
+          <entry key="project.open.time.82" value="1" />
+          <entry key="project.opened" value="9" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JSON" value="2" />
           <entry key="PLAIN_TEXT" value="2" />
-          <entry key="Python" value="32" />
+          <entry key="Python" value="34" />
           <entry key="SQL" value="3" />
         </counts>
       </usages-collector>
@@ -68,7 +70,7 @@
         <counts>
           <entry key="conf" value="279" />
           <entry key="dummy" value="20" />
-          <entry key="py" value="21329" />
+          <entry key="py" value="21510" />
           <entry key="sql" value="740" />
         </counts>
       </usages-collector>
@@ -76,14 +78,14 @@
         <counts>
           <entry key="conf" value="2" />
           <entry key="json" value="2" />
-          <entry key="py" value="32" />
+          <entry key="py" value="34" />
           <entry key="sql" value="3" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
           <entry key="PLAIN_TEXT" value="299" />
-          <entry key="Python" value="21309" />
+          <entry key="Python" value="21490" />
           <entry key="SQL" value="760" />
         </counts>
       </usages-collector>
@@ -165,14 +167,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="390">
-              <caret line="26" column="1022" selection-start-line="26" selection-start-column="1022" selection-end-line="26" selection-end-column="1022" />
+            <state relative-caret-position="540">
+              <caret line="36" selection-start-line="36" selection-end-line="36" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
-                <marker date="1538674551631" expanded="true" signature="143:190" ph="..." />
               </folding>
             </state>
           </provider>
@@ -181,8 +182,35 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/create_db.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-330">
-              <caret line="2" selection-start-line="1" selection-end-line="2" />
+            <state relative-caret-position="-292">
+              <caret line="74" column="39" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+                <element signature="e#162#567#0" />
+                <element signature="e#606#1621#0" />
+                <element signature="e#1716#2204#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="623">
+              <caret line="170" column="70" lean-forward="true" selection-start-line="170" selection-start-column="70" selection-end-line="170" selection-end-column="70" />
+              <folding>
+                <element signature="e#575#2097#0" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/util/Scheduling_Analyser/analyser.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="47">
+              <caret line="284" selection-start-line="284" selection-end-line="284" />
             </state>
           </provider>
         </entry>
@@ -260,10 +288,10 @@
         <option value="$PROJECT_DIR$/util/Spot History Tools/parse_spot_history.py" />
         <option value="$PROJECT_DIR$/util/Spot History Tools/analyser.py" />
         <option value="$PROJECT_DIR$/util/InputGenerator_Tools/generate_job.py" />
-        <option value="$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py" />
         <option value="$PROJECT_DIR$/util/InputGenerator_Tools/database.py" />
         <option value="$PROJECT_DIR$/util/InputGenerator_Tools/create_db.py" />
         <option value="$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py" />
+        <option value="$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py" />
       </list>
     </option>
   </component>
@@ -309,6 +337,12 @@
               <item name="util" type="462c0819:PsiDirectoryNode" />
               <item name="InputGenerator_Tools" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="dy_scheduling" type="b2602c69:ProjectViewProjectNode" />
+              <item name="dy_scheduling" type="462c0819:PsiDirectoryNode" />
+              <item name="util" type="462c0819:PsiDirectoryNode" />
+              <item name="Scheduling_Analyser" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -343,7 +377,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.parse2DB">
+  <component name="RunManager" selected="Python.analyser (1)">
     <configuration name="analyser (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="dy_scheduling" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -463,9 +497,9 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.parse2DB" />
-        <item itemvalue="Python.parse" />
         <item itemvalue="Python.analyser (1)" />
+        <item itemvalue="Python.parse" />
+        <item itemvalue="Python.parse2DB" />
         <item itemvalue="Python.analyser" />
         <item itemvalue="Python.parse_spot_history" />
       </list>
@@ -486,14 +520,13 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1920" height="1044" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49793673" visible="true" weight="0.28175026" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49793673" visible="true" weight="0.28495198" />
       <window_info id="Favorites" order="1" sideWeight="0.503268" side_tool="true" weight="0.35454544" />
       <window_info id="Structure" order="2" sideWeight="0.5020633" weight="0.28175026" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32884398" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49694002" visible="true" weight="0.20546448" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49694002" visible="true" weight="0.873224" />
       <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.49816403" weight="0.3989071" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -650,13 +683,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/Scheduling_Analyser/analyser.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="480">
-          <caret line="32" column="33" selection-start-line="32" selection-start-column="33" selection-end-line="32" selection-end-column="33" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/util/SpotHistory_Tools/parse.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -668,13 +694,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1710">
           <caret selection-end-line="1" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="34" lean-forward="true" selection-start-line="25" selection-start-column="4" selection-end-line="26" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -702,21 +721,43 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/create_db.py">
+    <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-330">
-          <caret line="2" selection-start-line="1" selection-end-line="2" />
+        <state relative-caret-position="540">
+          <caret line="36" selection-start-line="36" selection-end-line="36" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/parse2DB.py">
+    <entry file="file://$PROJECT_DIR$/util/InputGenerator_Tools/create_db.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="390">
-          <caret line="26" column="1022" selection-start-line="26" selection-start-column="1022" selection-end-line="26" selection-end-column="1022" />
+        <state relative-caret-position="-292">
+          <caret line="74" column="39" selection-start-line="74" selection-start-column="39" selection-end-line="74" selection-end-column="39" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
-            <marker date="1538674551631" expanded="true" signature="143:190" ph="..." />
+            <element signature="e#0#30#0" expanded="true" />
+            <element signature="e#162#567#0" />
+            <element signature="e#606#1621#0" />
+            <element signature="e#1716#2204#0" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/GoogleTrace_Tools/parse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="623">
+          <caret line="170" column="70" lean-forward="true" selection-start-line="170" selection-start-column="70" selection-end-line="170" selection-end-column="70" />
+          <folding>
+            <element signature="e#575#2097#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/util/Scheduling_Analyser/analyser.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="47">
+          <caret line="284" selection-start-line="284" selection-end-line="284" />
         </state>
       </provider>
     </entry>

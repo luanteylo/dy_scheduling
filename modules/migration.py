@@ -8,8 +8,15 @@ from util.printer import printer
 from util.thread import thread
 
 import traceback
+import time
 
+<<<<<<< HEAD
 # test
+=======
+
+# migration module
+
+>>>>>>> origin/migration
 class migration:
 
     # get the input parameters
@@ -82,6 +89,8 @@ class migration:
             if self.configInfo["migrate"]:
                 time.sleep(int(self.migrationInfo["waiting"]))
                 dom = self.virt.migrate(src, dest, dom)
+                
+
 
             thread1.join()
 
@@ -90,6 +99,10 @@ class migration:
             if code == 0:
                 self.printer.puts("Application Finished with sucess")
                 self.printer.puts("application runtime: " + str(runtime))
+
+                # write app output
+                if self.configInfo["write_app_output"]:
+                    self.printer.write_file(self.appInfo["path_out"], self.appInfo["output_file"], out + "\n\n", "a");
                 # self.printer.puts(out)
 
             else:
@@ -100,8 +113,15 @@ class migration:
 
             # output csv
             if self.configInfo["csv"]:
-                with open(self.csvInfo["path"] + self.csvInfo["name"], "a") as csv:
-                    csv.write(str(runtime) + "\n")
+              
+                content = str(runtime)
+
+                if self.configInfo["migrate"]:
+                    content +=  ", " + str(self.virt.migrate_time)
+
+                content += "\n"
+
+                self.printer.write_file(self.csvInfo["path"], self.csvInfo["name"], content, "a")
 
             # finish environment
             self.virt.destroyDom(dom)

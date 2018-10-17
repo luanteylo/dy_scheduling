@@ -1,0 +1,85 @@
+12,18c12,18
+< Model:                 58
+< Model name:            Intel(R) Core(TM) i7-3770 CPU @ 3.40GHz
+< Stepping:              9
+< CPU MHz:               1608.849
+< CPU max MHz:           3900,0000
+< CPU min MHz:           1600,0000
+< BogoMIPS:              6835.59
+---
+> Model:                 45
+> Model name:            Intel(R) Core(TM) i7-3820 CPU @ 3.60GHz
+> Stepping:              7
+> CPU MHz:               1202.102
+> CPU max MHz:           3800,0000
+> CPU min MHz:           1200,0000
+> BogoMIPS:              7200.35
+23c23
+< L3 cache:              8192K
+---
+> L3 cache:              10240K
+25c25
+< Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 cx16 xtpr pdcm pcid sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm cpuid_fault epb pti retpoline tpr_shadow vnmi flexpriority ept vpid fsgsbase smep erms xsaveopt dtherm ida arat pln pts
+---
+> Flags:                 fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc cpuid aperfmperf pni pclmulqdq dtes64 monitor ds_cpl vmx est tm2 ssse3 cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic popcnt tsc_deadline_timer aes xsave avx lahf_lm epb pti retpoline tpr_shadow vnmi flexpriority ept vpid xsaveopt dtherm ida arat pln pts
+28c28
+< SMBIOS 2.7 present.
+---
+> SMBIOS 2.6 present.
+30c30
+< Handle 0x0004, DMI type 4, 42 bytes
+---
+> Handle 0x0000, DMI type 4, 42 bytes
+32c32
+<         Socket Designation: LGA1155
+---
+>         Socket Designation: CPU 1
+34,37c34,37
+<         Family: Core 2 Duo
+<         Manufacturer: Intel
+<         ID: A9 06 03 00 FF FB EB BF
+<         Signature: Type 0, Family 6, Model 58, Stepping 9
+---
+>         Family: Core i7
+>         Manufacturer: Intel(R) Corporation
+>         ID: D7 06 02 00 FF FB EB BF
+>         Signature: Type 0, Family 6, Model 45, Stepping 7
+67,68c67,68
+<         Version: Intel(R) Core(TM) i7-3770 CPU @ 3.40GHz
+<         Voltage: 1.0 V
+---
+>         Version: Intel(R) Core(TM) i7-3820 CPU @ 3.60GHz
+>         Voltage: 1.1 V
+70,71c70,71
+<         Max Speed: 3800 MHz
+<         Current Speed: 3400 MHz
+---
+>         Max Speed: 4000 MHz
+>         Current Speed: 3602 MHz
+73,79c73,79
+<         Upgrade: Other
+<         L1 Cache Handle: 0x0005
+<         L2 Cache Handle: 0x0006
+<         L3 Cache Handle: 0x0007
+<         Serial Number: To Be Filled By O.E.M.
+<         Asset Tag: To Be Filled By O.E.M.
+<         Part Number: To Be Filled By O.E.M.
+---
+>         Upgrade: Socket LGA2011
+>         L1 Cache Handle: 0x0002
+>         L2 Cache Handle: 0x0003
+>         L3 Cache Handle: 0x0004
+>         Serial Number: Not Specified
+>         Asset Tag: Not Specified
+>         Part Number: Not Specified
+81,82c81,82
+<         Core Enabled: 1
+<         Thread Count: 2
+---
+>         Core Enabled: 4
+>         Thread Count: 8
+84c84
+<                 64-bit capable
+\ No newline at end of file
+---
+>                 64-bit capable

@@ -1,12 +1,11 @@
 #! /usr/bin/python
 
 from simpleVirt.simpleVirt import simpleVirt
-from simpleVirt.remoteApp import remoteApp
+from remoteApp.remoteApp import remoteApp
 
 from mailMe.mailMe import mailMe
 from util.printer import printer
 from util.thread import thread
-import time
 import timeit
 import traceback
 # Scaling module

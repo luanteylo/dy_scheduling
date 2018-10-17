@@ -1,0 +1,137 @@
+{
+	"0": {
+		"start_bkp": 350,
+		"vms": {
+			"3": {
+				"type":"c4.large",
+				"market":"on-demand",
+				"region":"us-west-1",
+				"zone":"",
+				"price": 2,
+				"map":  {
+					"0": {
+					},
+					"1": {
+						"0": {
+							"start":0,
+							"end":100
+						}
+					}
+				}
+			}
+		}
+	},
+	"1": {
+		"start_bkp": 150,
+		"vms": {
+			"3": {
+				"type":"c4.large",
+				"market":"on-demand",
+				"region":"us-west-1",
+				"zone":"",
+				"price": 2,
+				"map":  {
+					"0": {
+						"1": {
+							"start":0,
+							"end":100
+						},
+						"3": {
+							"start":100,
+							"end":300
+						}
+					},
+					"1": {
+						"2": {
+							"start":0,
+							"end":200
+						},
+						"0": {
+							"start":200,
+							"end":300
+						}
+					}
+				}
+			}
+		}
+	},
+	"2": {
+		"start_bkp": 360,
+		"vms": {
+			"5": {
+				"type":"m4.large",
+				"market":"on-demand",
+				"region":"us-west-1",
+				"zone":"",
+				"price": 3.5,
+				"map":  {
+					"0": {
+						"0": {
+							"start":0,
+							"end":30
+						},
+						"3": {
+							"start":30,
+							"end":90
+						}
+					},
+					"1": {
+						"2": {
+							"start":0,
+							"end":50
+						}
+					}
+				}
+			}
+		}
+	},
+	"3": {
+		"start_bkp": 390,
+		"vms": {
+			"5": {
+				"type":"m4.large",
+				"market":"on-demand",
+				"region":"us-west-1",
+				"zone":"",
+				"price": 3.5,
+				"map":  {
+					"0": {
+						"3": {
+							"start":0,
+							"end":60
+						}
+					},
+					"1": {
+						"0": {
+							"start":0,
+							"end":30
+						}
+					}
+				}
+			}
+		}
+	},
+	"4": {
+		"start_bkp": 380,
+		"vms": {
+			"7": {
+				"type":"m4.large",
+				"market":"on-demand",
+				"region":"us-west-1",
+				"zone":"",
+				"price": 3.5,
+				"map":  {
+					"0": {
+					},
+					"1": {
+						"4": {
+							"start":0,
+							"end":70
+						}
+					}
+				}
+			}
+		}
+	}
+
+}

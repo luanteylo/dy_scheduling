@@ -3,13 +3,23 @@
 from simpleVirt.simpleVirt import simpleVirt
 from simpleVirt.remoteApp import remoteApp
 
+from simpleBoto.simpleBoto import  simpleBoto
+
+from remoteApp.remoteApp import remoteApp
+
 from mailMe.mailMe import mailMe
 from util.printer import printer
 from util.thread import thread
 
 import traceback
+<<<<<<< HEAD
 import boto3 
 from botocore.exceptions import ClientError, ConfigParseError
+=======
+import sqlite3
+import os
+
+>>>>>>> origin/aws
 # test
 
 class aws:
@@ -19,13 +29,14 @@ class aws:
         '''
         inputParser : util.inputParser
         '''
+
         self.configInfo = inputParser.configInfo
-        self.hostsInfo = inputParser.hostsInfo
-        self.guestInfo = inputParser.guestInfo
+        self.ec2Info = inputParser.ec2Info
         self.appInfo = inputParser.appInfo
-        self.migrationInfo = inputParser.migrationInfo
         self.csvInfo = inputParser.csvInfo
         self.mailMeInfo = inputParser.mailMeInfo
+
+        self.dbInfo = inputParser.dbConfig
 
         self.printer = printer(self.configInfo["verbose"])
 
@@ -33,37 +44,66 @@ class aws:
         if self.configInfo["mailme"]:
             self.mail = mailMe(self.mailMeInfo)
 
-        self.virt = simpleVirt(self.printer, self.hostsInfo, self.guestInfo, self.appInfo)
+        self.boto = simpleBoto(self.printer, self.ec2Info,  self.appInfo)
+
+
+
+    def __openDB(self):
+
+        pass
+
 
     def run(self):
 
-        exec_num = 1
+        # instances, instances_id = self.boto.create_instances(maxCount=1)
+        #
+        # app = None
+        # for instance in instances:
+        #     app = remoteApp(self.printer, self.appInfo, self.ec2Info, instance)
+        #
+        # app.execApp()
+        #
+        # outdata, errdata, retcode, runtime = app.getAppOutput()
+        #
+        # print outdata
+        # print errdata
+        # print retcode
+        # print runtime
+        #
+        # app.closeSSH()
 
-        if self.configInfo["repeat"]:
-            exec_num = int(self.appInfo["repeat_num"])
+        self.boto.terminate_all_instances()
 
-        for i in range(exec_num):
-            self.printer.puts("Controle: running test " + str(i + 1))
 
-            status = self.__runTest()
 
-            # test finished without success
-            if not status:
 
-                if self.mail:
-                    self.mail.send_email_warning(
-                        subject="Error: " + self.csvInfo["name"], body="Error test " + str(i + 1))
-
-                self.virt.forceDestroyDom()
-
-            # test finished with success
-            else:
-
-                if self.mail:
-                    self.mail.send_email(
-                        subject="Success: " + self.csvInfo["name"])
-
-            self.printer.puts("###########\n\n")
+        # exec_num = 1
+        #
+        # if self.configInfo["repeat"]:
+        #     exec_num = int(self.appInfo["repeat_num"])
+        #
+        # for i in range(exec_num):
+        #     self.printer.puts("Controle: running test " + str(i + 1))
+        #
+        #     status = self.__runTest()
+        #
+        #     # test finished without success
+        #     if not status:
+        #
+        #         if self.mail:
+        #             self.mail.send_email_warning(
+        #                 subject="Error: " + self.csvInfo["name"], body="Error test " + str(i + 1))
+        #
+        #         self.virt.forceDestroyDom()
+        #
+        #     # test finished with success
+        #     else:
+        #
+        #         if self.mail:
+        #             self.mail.send_email(
+        #                 subject="Success: " + self.csvInfo["name"])
+        #
+        #     self.printer.puts("###########\n\n")
 
     def __runTest(self):
 

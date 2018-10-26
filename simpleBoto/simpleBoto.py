@@ -7,10 +7,10 @@ import paramiko
 import boto3
 from botocore.exceptions import ClientError, ConfigParseError
 
-
 class simpleBoto:
 
     def __init__(self, printer, ec2_info, app_info):
+        print "init simpleBoto"
 
         self.auth_timeout = int(app_info["auth_timeout"])
         self.ssh_repeat = int(app_info["ssh_repeat"])
@@ -93,10 +93,10 @@ class simpleBoto:
         :param minCount: int 
         :param maxCount: int
         :return: list
-        """""
+        """
 
         # print self.ami, self.default_type, self.security_groups, self.key_name, minCount, maxCount
-
+        print "init simpleBoto"
         try:
 
             if instance_type is None:

@@ -12,14 +12,11 @@ from util.printer import printer
 from util.thread import thread
 
 import traceback
-<<<<<<< HEAD
-import boto3 
-from botocore.exceptions import ClientError, ConfigParseError
-=======
+
 import sqlite3
 import os
 
->>>>>>> origin/aws
+
 # test
 
 class aws:

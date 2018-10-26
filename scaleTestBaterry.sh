@@ -12,6 +12,6 @@
 #python dy_scheduling.py --module scaling --config scaleTests/scaleTest7.conf 
 #python dy_scheduling.py --module scaling --config scaleTests/scaleTest8.conf 
 #python dy_scheduling.py --module scaling --config scaleTests/scaleTest9.conf
-python dy_scheduling.py --module scaling --config scaleTests/scaleTest10.conf 
+python dy_scheduling.py --module scaling --config scaleTest1.conf 
 
 

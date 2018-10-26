@@ -10,13 +10,13 @@ from util.thread import thread
 import traceback
 import time
 
-<<<<<<< HEAD
+
 # test
-=======
+
 
 # migration module
 
->>>>>>> origin/migration
+
 class migration:
 
     # get the input parameters

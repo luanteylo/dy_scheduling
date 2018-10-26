@@ -28,26 +28,13 @@ class simpleVirt:
         # print self.ip, self.user, self.pwd, self.port
 
         self.printer = printer
-<<<<<<< HEAD
         
     def connect2Host(self, host, hypervisor):
 	if(hypervisor == "kvm"):        
-	    conn = libvirt.open('qemu+ssh://' + host + '/system')
+	    conn = libvirt.open('qemu+ssh://matheus@' + host + '/system')
+	    #conn = libvirt.open('qemu://' + host + '/system')
 	if(hypervisor == "virtual_box"):
 	    conn = libvirt.open('vbox:///session')
-
-
-=======
-
-    def connect2Host(self, host):
-        conn = libvirt.open('qemu+ssh://' + host + '/system')
->>>>>>> origin/aws
-        if conn == None:
-            self.printer.puts('Failed to connect to the hypervizor', True)
-        else:
-            self.printer.puts('Qemu Connected to ' + host)
-
-        return conn
 
     def wait4Connection(self, ssh_repeat):
         count = 0
@@ -247,7 +234,6 @@ class simpleVirt:
             self.printer.puts(
                 "Warning. Check if the environment was finished correctly.", True)
 
-<<<<<<< HEAD
     #AWS FUNCTIONS
     
     def get_ec2():
@@ -488,8 +474,3 @@ class simpleVirt:
     def log_print(self,msg, verbose):
         if verbose:
             print msg
-
-
-=======
-    #
->>>>>>> origin/aws

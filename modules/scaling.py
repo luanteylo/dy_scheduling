@@ -38,7 +38,7 @@ class scaling:
         self.virt = simpleVirt(self.printer, self.hostsInfo, self.guestInfo, self.appInfo)
 
     def run(self):
-        
+        print "run scale"
         exec_num = 1
 
         if self.configInfo["repeat"]:

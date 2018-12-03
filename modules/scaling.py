@@ -83,7 +83,7 @@ class scaling:
             
             setup_time = timeit.default_timer()
             
-            app = remoteApp(self.printer, self.appInfo, self.guestInfo)
+            app = remoteApp(self.printer, self.appInfo, self.guestInfo,EXECUTE_COMMAND_1)
             app2 = remoteApp(self.printer, self.appInfo, self.guestInfo,EXECUTE_COMMAND_2)
             # start new thread and exec application
             thread1 = self.__execThread(app)

@@ -13,7 +13,7 @@ EXECUTE_COMMAND_2 = 1
  
 class remoteApp:
  
-    def __init__(self, printer, app_info, guest_info,command):
+    def __init__(self, printer, app_info, ec2_info, access):
             # app info
             if  command == EXECUTE_COMMAND_1:
                 self.command = app_info["command1"]
@@ -25,10 +25,10 @@ class remoteApp:
 		
 		
             # connection info
-            self.ip = guest_info["ip"]
-            self.user = guest_info["user"]
-            self.pwd = guest_info["password"]
-            self.port = int(guest_info["port"])
+            self.ip = access
+            self.user = ec2_info["user"]
+            self.port = int(ec2_info["port"])
+            self.key = ec2_info["ssh_key_file"]
  
             # print self.ip, self.user, self.pwd, self.port
  
@@ -52,7 +52,9 @@ class remoteApp:
                             self.client = paramiko.SSHClient()
                             self.client.load_system_host_keys()
                             self.client.set_missing_host_key_policy(paramiko.AutoAddPolicy())
-                            self.client.connect(hostname=self.ip, port=self.port, username=self.user, password=self.pwd, auth_timeout=self.auth_timeout)
+                            k = paramiko.RSAKey.from_private_key_file(self.key)
+                            self.client.connect(hostname=self.ip, port=self.port, username=self.user,  auth_timeout=self.auth_timeout,pkey = k )
+                            
                             count = self.ssh_repeat
                     except Exception as e:
                             print e, "try number " + str(count+1)
@@ -91,7 +93,7 @@ class remoteApp:
                     self.chan.setblocking(0)
  			
                     start_time = time.time()
-                    print "execapp: " + self.command
+                    print "execapp: " + self.app_path+self.command
                     self.chan.exec_command(self.app_path+self.command)
  			
                     self.printer.puts("execApp: waiting...")	

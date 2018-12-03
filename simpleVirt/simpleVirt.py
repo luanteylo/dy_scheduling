@@ -3,7 +3,7 @@
 import libvirt
 import time
 import paramiko
-
+import os
 import boto3
 from botocore.exceptions import ClientError, ConfigParseError
 import googleapiclient.discovery
@@ -36,6 +36,9 @@ class simpleVirt:
 	    #conn = libvirt.open('qemu://' + host + '/system')
 	if(hypervisor == "virtual_box"):
 	    conn = libvirt.open('vbox:///session')
+        if(hypervisor == "google_cloud"):
+            conn = googleapiclient.discovery.build('compute', 'v1')
+        return conn
 
     def wait4Connection(self, ssh_repeat):
         count = 0
@@ -479,10 +482,7 @@ class simpleVirt:
 
     #google functions
     
-    def get_google_compute():
-        return googleapiclient.discovery.build('compute', 'v1')
-    
-    def wait_for_operation(compute, project, zone, operation): 
+    def wait_for_operation(self, compute, project, zone, operation): 
         print('Waiting for operation to finish...')
         while True:
             result = compute.zoneOperations().get(
@@ -498,7 +498,7 @@ class simpleVirt:
 
             time.sleep(1)
     
-    def create_instance(compute, project, zone, name, bucket, vcpu_number, mem_number):
+    def create_instance(self, compute, project, zone, name, bucket, vcpu_number, mem_number):
         # Get the latest Debian Jessie image.
         image_response = compute.images().getFromFamily(
         project='ubuntu-os-cloud', family='ubuntu-1804-lts').execute()
@@ -542,6 +542,7 @@ class simpleVirt:
                 'scopes': [
                     'https://www.googleapis.com/auth/devstorage.read_write',
                     'https://www.googleapis.com/auth/logging.write'
+
                 ]
             }],
 
@@ -569,18 +570,24 @@ class simpleVirt:
             project=project,
             zone=zone,
             body=config).execute()
+    #'https://www.googleapis.com/compute/v1/projects/scheduling/zones/%s/instances/%s/start'
+    #'https://www.googleapis.com/compute/v1/projects/myproject/zones/%s/instances/%s/reset'
     
-    def delete_instance(compute, project, zone, name):
+    def delete_instance(self, compute, project, zone, name):
         return compute.instances().delete(
             project=project,
             zone=zone,
             instance=name).execute()
         
-    def list_instances(compute, project, zone):
+    def list_instances(self, compute, project, zone):
         result = compute.instances().list(project=project, zone=zone).execute()
         return result['items']        
             
-            
+    def startInstance(auth_http, compute, project, zone, instance):
+        return compute.instances().start(project, zone, instance).execute()
+    
+    def stopInstance(auth_http, compute, project, zone, instance):
+        return compute.instances().stop(project, zone, instance).execute()
             
             
             

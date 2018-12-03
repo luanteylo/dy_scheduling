@@ -115,9 +115,9 @@ class remoteAppAws:
         # being garbage collected and the connection from being closed.
                     
 
-                    print "Send program"+ '/home/matheus/'+self.exec_file, self.app_path+self.exec_file
-                    self.sftp.put('/home/matheus/'+self.exec_file, self.app_path+self.exec_file)
-                    self.sftp.put('/home/matheus/'+self.runner_file, self.app_path+self.runner_file)
+                    print "Send program"+ '/home/ubuntu/'+self.exec_file, self.app_path+self.exec_file
+                    self.sftp.put('/home/ubuntu/'+self.exec_file, self.app_path+self.exec_file)
+                    self.sftp.put('/home/ubuntu/'+self.runner_file, self.app_path+self.runner_file)
                     self.sftp.close()
                     print "Prepare enviroment"
                     print "Update"
